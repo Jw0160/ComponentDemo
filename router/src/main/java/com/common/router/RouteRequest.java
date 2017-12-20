@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.ArraySet;
+import android.view.ViewGroup;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -37,6 +38,8 @@ public class RouteRequest implements Serializable {
     @Nullable
     private ActivityOptionsCompat activityOptionsCompat;
 
+    //添加View
+    private ViewGroup viewGroup;
 
     public RouteRequest(Uri uri) {
         this.uri = uri;
@@ -151,5 +154,28 @@ public class RouteRequest implements Serializable {
 
     public void setActivityOptionsCompat(ActivityOptionsCompat activityOptionsCompat) {
         this.activityOptionsCompat = activityOptionsCompat;
+    }
+
+    public ViewGroup getViewGroup() {
+        return viewGroup;
+    }
+
+    public RouteRequest setViewGroup(ViewGroup viewGroup) {
+        this.viewGroup = viewGroup;
+        return this;
+    }
+
+    /**
+     * Reset fields.
+     */
+    public void reset() {
+        flags = 0;
+        requestCode = -1;
+        callback = null;
+        extras = null;
+        enterAnim = 0;
+        exitAnim = 0;
+        skipInterceptors = false;
+        viewGroup = null;
     }
 }

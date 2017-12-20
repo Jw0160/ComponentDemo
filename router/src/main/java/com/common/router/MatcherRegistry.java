@@ -4,6 +4,7 @@ import com.common.router.matcher.AbsMatcher;
 import com.common.router.matcher.BrowserMatcher;
 import com.common.router.matcher.DirectMatcher;
 import com.common.router.matcher.ImplicitMatcher;
+import com.common.router.matcher.RouterHandlerMatcher;
 import com.common.router.matcher.SchemeMatcher;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class MatcherRegistry {
     private static final List<AbsMatcher> registry = new ArrayList<>();
 
     static {
+        registry.add(new RouterHandlerMatcher(0x1001));
         registry.add(new DirectMatcher(0x1000));
         registry.add(new SchemeMatcher(0x0100));
         registry.add(new ImplicitMatcher(0x0010));

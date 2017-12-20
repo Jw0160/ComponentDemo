@@ -1,4 +1,4 @@
-include ':compiler', ':annotation', ':router'
+include ':compiler', ':annotation', ':router', ':buildsrc', ':common_base'
 rootProject.name = 'Jw_Demo'
 include ":app"
 //project(":JwShell").projectDir=new File("app")

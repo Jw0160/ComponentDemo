@@ -1,3 +1,3 @@
-common.compiler.processor.RouteProcessor
-common.compiler.processor.InterceptorProcessor
-common.compiler.processor.InjectParamProcessor
+com.common.compiler.processor.RouteProcessor
+com.common.compiler.processor.InterceptorProcessor
+com.common.compiler.processor.InjectParamProcessor

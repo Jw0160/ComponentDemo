@@ -38,6 +38,7 @@ import static com.common.compiler.util.Consts.ROUTE_ANNOTATION_TYPE;
 import static com.common.compiler.util.Consts.ROUTE_TABLE;
 import static com.common.compiler.util.Consts.ROUTE_TABLE_FULL_NAME;
 import static com.common.compiler.util.Consts.TABLE_INTERCEPTORS;
+import static com.common.compiler.util.Consts.COSTOM_TOUTER;
 
 /**
  * {@link Route} annotation processor.
@@ -47,12 +48,12 @@ import static com.common.compiler.util.Consts.TABLE_INTERCEPTORS;
 @SupportedAnnotationTypes(ROUTE_ANNOTATION_TYPE)
 @SupportedOptions(OPTION_MODULE_NAME)
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
-public class RouteProcessor extends AbstractProcessor {
+public class RouteProcessor extends AbstractProcessor{
     private String mModuleName;
     private Logger mLogger;
 
     @Override
-    public synchronized void init(ProcessingEnvironment processingEnvironment) {
+    public synchronized void init(ProcessingEnvironment processingEnvironment){
         super.init(processingEnvironment);
         mModuleName = processingEnvironment.getOptions().get(OPTION_MODULE_NAME);
         mLogger = new Logger(processingEnvironment.getMessager());
@@ -62,24 +63,25 @@ public class RouteProcessor extends AbstractProcessor {
      * This method will be called some times.
      */
     @Override
-    public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
+    public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment){
         Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(Route.class);
-        if (elements == null || elements.isEmpty()) {
+        if(elements == null || elements.isEmpty()){
             return true;
         }
         mLogger.info(String.format(">>> %s: RouteProcessor begin... <<<", mModuleName));
+        mLogger.info(mModuleName + "________________---");
         // 合法的TypeElement集合
         Set<TypeElement> typeElements = new HashSet<>();
-        for (Element element : elements) {
-            if (validateElement(element)) {
+        for(Element element : elements){
+            if(validateElement(element)){
                 typeElements.add((TypeElement) element);
             }
         }
-        if (mModuleName != null) {
+        if(mModuleName != null){
             String validModuleName = mModuleName.replace(".", "_").replace("-", "_");
             generateRouteTable(validModuleName, typeElements);
             generateTargetInterceptors(validModuleName, typeElements);
-        } else {
+        }else{
             mLogger.error(String.format("No option `%s` passed to Route annotation processor.", OPTION_MODULE_NAME));
         }
         mLogger.info(String.format(">>> %s: RouteProcessor end. <<<", mModuleName));
@@ -89,16 +91,16 @@ public class RouteProcessor extends AbstractProcessor {
     /**
      * Verify the annotated class. Must be a subtype of Activity or Fragment.
      */
-    private boolean validateElement(Element typeElement) {
-        if (!isSubtype(typeElement, ACTIVITY_FULL_NAME) && !isSubtype(typeElement, FRAGMENT_V4_FULL_NAME)
-                && !isSubtype(typeElement, FRAGMENT_FULL_NAME)) {
+    private boolean validateElement(Element typeElement){
+        if(!isSubtype(typeElement, ACTIVITY_FULL_NAME) && !isSubtype(typeElement, FRAGMENT_V4_FULL_NAME)
+                && !isSubtype(typeElement, FRAGMENT_FULL_NAME)&& !isSubtype(typeElement, COSTOM_TOUTER)){
             mLogger.error(typeElement, String.format("%s is not a subclass of Activity or Fragment.",
                     typeElement.getSimpleName().toString()));
             return false;
         }
         Set<Modifier> modifiers = typeElement.getModifiers();
         // abstract class.
-        if (modifiers.contains(Modifier.ABSTRACT)) {
+        if(modifiers.contains(Modifier.ABSTRACT)){
             mLogger.error(typeElement, String.format("The class %s is abstract. You can't annotate abstract classes with @%s.",
                     ((TypeElement) typeElement).getQualifiedName(), Route.class.getSimpleName()));
             return false;
@@ -106,7 +108,7 @@ public class RouteProcessor extends AbstractProcessor {
         return true;
     }
 
-    private boolean isSubtype(Element typeElement, String type) {
+    private boolean isSubtype(Element typeElement, String type){
         return processingEnv.getTypeUtils().isSubtype(typeElement.asType(),
                 processingEnv.getElementUtils().getTypeElement(type).asType());
     }
@@ -114,26 +116,24 @@ public class RouteProcessor extends AbstractProcessor {
     /**
      * RouteTable.
      */
-    private void generateRouteTable(String moduleName, Set<TypeElement> elements) {
+    private void generateRouteTable(String moduleName, Set<TypeElement> elements){
         // Map<String, Class<?>> map
         ParameterizedTypeName mapTypeName = ParameterizedTypeName.get(ClassName.get(Map.class),
                 ClassName.get(String.class), ParameterizedTypeName.get(ClassName.get(Class.class),
                         WildcardTypeName.subtypeOf(Object.class)));
         ParameterSpec mapParameterSpec = ParameterSpec.builder(mapTypeName, "map").build();
-
         MethodSpec.Builder methodHandle = MethodSpec.methodBuilder(HANDLE)
                 .addAnnotation(Override.class)
                 .addModifiers(Modifier.PUBLIC)
                 .addParameter(mapParameterSpec);
-        for (TypeElement element : elements) {
+        for(TypeElement element : elements){
             mLogger.info(String.format("Found routed target: %s", element.getQualifiedName()));
             Route route = element.getAnnotation(Route.class);
             String[] paths = route.value();
-            for (String path : paths) {
+            for(String path : paths){
                 methodHandle.addStatement("map.put($S, $T.class)", path, ClassName.get(element));
             }
         }
-
         TypeElement interfaceType = processingEnv.getElementUtils().getTypeElement(ROUTE_TABLE_FULL_NAME);
         TypeSpec type = TypeSpec.classBuilder(capitalize(moduleName) + ROUTE_TABLE)
                 .addSuperinterface(ClassName.get(interfaceType))
@@ -141,9 +141,9 @@ public class RouteProcessor extends AbstractProcessor {
                 .addMethod(methodHandle.build())
                 .addJavadoc(CLASS_JAVA_DOC)
                 .build();
-        try {
+        try{
             JavaFile.builder(PACKAGE_NAME, type).build().writeTo(processingEnv.getFiler());
-        } catch (IOException e) {
+        }catch(IOException e){
             e.printStackTrace();
         }
     }
@@ -151,7 +151,7 @@ public class RouteProcessor extends AbstractProcessor {
     /**
      * TargetInterceptors.
      */
-    private void generateTargetInterceptors(String moduleName, Set<TypeElement> elements) {
+    private void generateTargetInterceptors(String moduleName, Set<TypeElement> elements){
         // Map<Class<?>, String[]> map
         ParameterizedTypeName mapTypeName = ParameterizedTypeName.get(
                 ClassName.get(Map.class),
@@ -164,24 +164,24 @@ public class RouteProcessor extends AbstractProcessor {
                 .addModifiers(Modifier.PUBLIC)
                 .addParameter(mapParameterSpec);
         boolean hasInterceptor = false; // flag
-        for (TypeElement element : elements) {
+        for(TypeElement element : elements){
             Route route = element.getAnnotation(Route.class);
             String[] interceptors = route.interceptors();
-            if (interceptors.length > 1) {
+            if(interceptors.length > 1){
                 hasInterceptor = true;
                 StringBuilder sb = new StringBuilder();
-                for (String interceptor : interceptors) {
+                for(String interceptor : interceptors){
                     sb.append("\"").append(interceptor).append("\",");
                 }
                 methodHandle.addStatement("map.put($T.class, new String[]{$L})",
                         ClassName.get(element), sb.substring(0, sb.lastIndexOf(",")));
-            } else if (interceptors.length == 1) {
+            }else if(interceptors.length == 1){
                 hasInterceptor = true;
                 methodHandle.addStatement("map.put($T.class, new String[]{$S})",
                         ClassName.get(element), interceptors[0]);
             }
         }
-        if (!hasInterceptor) { // if there are no interceptors, ignore.
+        if(!hasInterceptor){ // if there are no interceptors, ignore.
             return;
         }
         TypeSpec type = TypeSpec.classBuilder(capitalize(moduleName) + TABLE_INTERCEPTORS)
@@ -190,14 +190,15 @@ public class RouteProcessor extends AbstractProcessor {
                 .addMethod(methodHandle.build())
                 .addJavadoc(CLASS_JAVA_DOC)
                 .build();
-        try {
+        mLogger.error(type + "");
+        try{
             JavaFile.builder(PACKAGE_NAME, type).build().writeTo(processingEnv.getFiler());
-        } catch (IOException e) {
+        }catch(IOException e){
             e.printStackTrace();
         }
     }
 
-    private String capitalize(CharSequence self) {
+    private String capitalize(CharSequence self){
         return self.length() == 0 ? "" :
                 "" + Character.toUpperCase(self.charAt(0)) + self.subSequence(1, self.length());
     }

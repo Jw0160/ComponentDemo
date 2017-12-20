@@ -9,13 +9,15 @@ import android.support.annotation.AnimRes;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * Router interface.
  * <p>
  * Created by Cheney on 2017/3/31.
  */
-public interface IRouter {
+public interface IRouter{
     IRouter build(Uri uri);
 
     IRouter callback(RouteCallback callback);
@@ -51,6 +53,11 @@ public interface IRouter {
      * @see Intent#addFlags(int)
      */
     IRouter addFlags(int flags);
+
+    /**
+     * @see ViewGroup#addView(View) (int)
+     */
+    IRouter setViewGroup(ViewGroup viewGroup);
 
     /**
      * @see android.app.Activity#overridePendingTransition(int, int)

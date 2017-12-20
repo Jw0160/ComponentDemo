@@ -14,7 +14,7 @@ import java.util.Map;
  * Created by Cheney on 2017/3/13.
  */
 public class AptHub {
-    private static final String PACKAGE_NAME = "com.chenenyu.router";
+    private static final String PACKAGE_NAME = "com.common.router";
     private static final String DOT = ".";
     private static final String ROUTER_BUILD_INFO = "RouterBuildInfo";
     private static final String ALL_MODULES = "ALL_MODULES";
