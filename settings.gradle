@@ -1,0 +1,7 @@
+include ':compiler', ':annotation', ':router'
+rootProject.name = 'Jw_Demo'
+include ":app"
+//project(":JwShell").projectDir=new File("app")
+//include ":JwShell"
+
+

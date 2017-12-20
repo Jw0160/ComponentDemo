@@ -1,0 +1,8 @@
+apply from: getLibPath
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile deps.supportv7
+    compile deps.supportv4
+}

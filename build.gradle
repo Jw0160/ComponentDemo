@@ -1,0 +1,52 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: rootDir.absolutePath + '/buildSource/utils.gradle'
+apply from: getExtrasPath
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath "net.rdrei.android.buildtimetracker:gradle-plugin:$BUILD_TIME_TRACKER_PLUGIN"
+        classpath "com.jakewharton:butterknife-gradle-plugin:$VERSION_BUTTERKNIFE_PLUGIN"
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+subprojects {
+    apply from: rootDir.absolutePath + '/buildSource/utils.gradle'
+
+}
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+apply plugin: "build-time-tracker"
+
+buildtimetracker {
+    reporters {
+        csv {
+            output "build/times.csv"
+            append true
+            header false
+        }
+
+        summary {
+            ordered false
+            threshold 50
+            barstyle "unicode"
+        }
+
+        csvSummary {
+            csv "build/times.csv"
+        }
+    }
+}
