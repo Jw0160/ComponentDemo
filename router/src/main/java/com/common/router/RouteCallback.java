@@ -6,7 +6,7 @@ import android.net.Uri;
  * <p>
  * Created by Cheney on 2016/12/20.
  */
-public interface RouteCallback {
+public interface RouteCallback{
     /**
      * Callback
      *
@@ -15,4 +15,12 @@ public interface RouteCallback {
      * @param message notice msg
      */
     void callback(RouteResult state, Uri uri, String message);
+
+    /**
+     * 异步回调
+     *
+     * @return :
+     * @parms
+     */
+    void handler(RouterEvent routerEvent);
 }

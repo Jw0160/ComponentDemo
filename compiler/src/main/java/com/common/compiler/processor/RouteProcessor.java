@@ -93,7 +93,7 @@ public class RouteProcessor extends AbstractProcessor{
      */
     private boolean validateElement(Element typeElement){
         if(!isSubtype(typeElement, ACTIVITY_FULL_NAME) && !isSubtype(typeElement, FRAGMENT_V4_FULL_NAME)
-                && !isSubtype(typeElement, FRAGMENT_FULL_NAME)&& !isSubtype(typeElement, COSTOM_TOUTER)){
+                && !isSubtype(typeElement, FRAGMENT_FULL_NAME) && !isSubtype(typeElement, COSTOM_TOUTER)){
             mLogger.error(typeElement, String.format("%s is not a subclass of Activity or Fragment.",
                     typeElement.getSimpleName().toString()));
             return false;
@@ -190,7 +190,6 @@ public class RouteProcessor extends AbstractProcessor{
                 .addMethod(methodHandle.build())
                 .addJavadoc(CLASS_JAVA_DOC)
                 .build();
-        mLogger.error(type + "");
         try{
             JavaFile.builder(PACKAGE_NAME, type).build().writeTo(processingEnv.getFiler());
         }catch(IOException e){

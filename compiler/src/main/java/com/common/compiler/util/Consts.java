@@ -19,7 +19,7 @@ public class Consts {
 
     public static final String ROUTE_ANNOTATION_TYPE = "com.common.annotation.Route";
     public static final String INTERCEPTOR_ANNOTATION_TYPE = "com.common.annotation.Interceptor";
-    public static final String PARAM_ANNOTATION_TYPE = "com.common..annotation.InjectParam";
+    public static final String PARAM_ANNOTATION_TYPE = "com.common.annotation.InjectParam";
 
     public static final String HANDLE = "handle";
     public static final String INTERCEPTOR_INTERFACE = PACKAGE_NAME + DOT + "RouteInterceptor";

@@ -343,7 +343,10 @@ class RealRouter extends AbsRouter{
             }else{
                 for(Map.Entry<String, Class<?>> entry : entries){
                     if(matcher.match(context, mRouteRequest.getUri(), entry.getKey(), mRouteRequest)){
-                        RLog.i("Caught by " + matcher.getClass().getCanonicalName());
+                        KLog.i("Caught by _____" + matcher.getClass().getCanonicalName());
+                        if(intercept(context, entry.getValue())){
+                            return null;
+                        }
                         Object lGenerate = matcher.generate(context, mRouteRequest.getUri(), entry.getValue());
                         if(lGenerate instanceof RouterHandler){
                             return (RouterHandler) lGenerate;
@@ -354,8 +357,7 @@ class RealRouter extends AbsRouter{
                 }
             }
         }
-        callback(RouteResult.FAILED, String.format(
-                "Can not find an Activity that matches the given uri: %s", mRouteRequest.getUri()));
+        callback(RouteResult.FAILED, String.format("Can not find an Activity that matches the given uri: %s", mRouteRequest.getUri()));
         return null;
     }
 
@@ -368,8 +370,25 @@ class RealRouter extends AbsRouter{
                 context = APP.INSTANCE;
             }
             lRouterHandler.handler(mRouteRequest, context);
-            callback(RouteResult.SUCCEED, null);
+        }else{
+            Intent intent = getIntent(context);
+            if(intent == null){
+                KLog.e("intent is null~~");
+                return;
+            }
+            Bundle options = mRouteRequest.getActivityOptionsCompat() == null ? null : mRouteRequest.getActivityOptionsCompat().toBundle();
+            if(context instanceof Activity){
+                ActivityCompat.startActivityForResult((Activity) context, intent, mRouteRequest.getRequestCode(), options);
+                if(mRouteRequest.getEnterAnim() != 0 && mRouteRequest.getExitAnim() != 0){
+                    // Add transition animation.
+                    ((Activity) context).overridePendingTransition(mRouteRequest.getEnterAnim(), mRouteRequest.getExitAnim());
+                }
+            }else{
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                ContextCompat.startActivity(context, intent, options);
+            }
         }
+        callback(RouteResult.SUCCEED, null);
     }
 
     @Override
