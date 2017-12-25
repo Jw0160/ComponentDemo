@@ -4,4 +4,15 @@ apply from: getLibPath
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile deps.gson
+    compile deps.utilcode
+    compile deps.BaseAdapter
+    compile deps.retrofit
+    compile deps.retrofitGson
+    compile deps.retrofitRxjava
+    compile deps.okhttpInterceptor
+    compile deps.rxandroid
+    compile deps.rxjava
+    compile deps.rxlifecycle
+    compile deps.rxlifecycleComponents
+//    compile deps.easypermissions
 }
