@@ -1,6 +1,6 @@
-apply(from: rootDir.absolutePath + "/buildSource/release.gradle")
-apply plugin: 'com.common.router'
+apply from: getReleasePath
 
+apply plugin: 'com.common.router'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
