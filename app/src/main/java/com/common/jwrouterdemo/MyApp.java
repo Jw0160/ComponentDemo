@@ -2,6 +2,7 @@ package com.common.jwrouterdemo;
 
 import android.app.Application;
 
+import com.blankj.utilcode.util.Utils;
 import com.common.common_base.utils.KLog;
 import com.common.router.Router;
 
@@ -18,5 +19,6 @@ public class MyApp extends Application{
         super.onCreate();
         Router.initialize(this, true);
         KLog.init(true);
+        Utils.init(this);
     }
 }
