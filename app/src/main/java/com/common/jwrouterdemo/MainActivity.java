@@ -37,8 +37,6 @@ public class MainActivity extends Activity{
     }
 
     public void onDownload(View view){
-        Map<String, String> map = new HashMap<>();
-        map.put("bbb", "bbb");
         HttpRxObservable
                 .getObservable(RetrofitUtils.get().retrofit().create(DownLoadApi.class).getDownladoResult("jsonObject", "aaa"))
                 .subscribe(new HttpRxObserver(){

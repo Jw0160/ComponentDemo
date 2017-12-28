@@ -14,5 +14,7 @@ dependencies {
     compile deps.rxjava
     compile deps.rxlifecycle
     compile deps.rxlifecycleComponents
+    compile deps.eventbus
+
 //    compile deps.easypermissions
 }
