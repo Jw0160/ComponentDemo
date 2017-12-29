@@ -23,13 +23,41 @@
         android:text="show" />
     
     <Button
+        android:id="@+id/btn1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onBtn1"
         android:text="btn1" />
+    
+    <Button
+        android:id="@+id/btn2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onBtn1"
+        android:text="btn2" />
+    
+    <Button
+        android:id="@+id/btn3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onBtn1"
+        android:text="btn3" />
+    
+    <Button
+        android:id="@+id/btn4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onBtn1"
+        android:text="btn4" />
+    
     <Button
         android:layout_width="match_parent"
-        android:text="download"
+        android:layout_height="wrap_content"
         android:onClick="onDownload"
-        android:layout_height="wrap_content" />
+        android:text="download" />
+    
+    <FrameLayout
+        android:id="@+id/frame_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
 </LinearLayout>

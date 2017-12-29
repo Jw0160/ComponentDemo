@@ -23,7 +23,7 @@ import okio.Buffer;
 
 public class LoggerInterceptor implements Interceptor{
 
-    public static final String TAG = "LoggerInterceptor";
+    private static final String TAG = "LoggerInterceptor";
     private String tag;
 
     public LoggerInterceptor(String tag){
