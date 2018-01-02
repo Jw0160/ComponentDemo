@@ -12,8 +12,11 @@ import com.trello.rxlifecycle2.components.RxActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * @author : wangb
@@ -22,9 +25,11 @@ import butterknife.Unbinder;
  * @desc :
  */
 
-public abstract class BaseActivity extends RxActivity implements BaseActivityInterface{
+public abstract class BaseActivity extends RxActivity implements BaseActivityInterface , EasyPermissions.PermissionCallbacks{
     protected Context mContext;
     protected Unbinder unBinder;
+
+
     private String TAG;
 
     /**
