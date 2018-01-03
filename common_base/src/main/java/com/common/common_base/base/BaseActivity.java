@@ -16,7 +16,6 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * @author : wangb
@@ -25,7 +24,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  * @desc :
  */
 
-public abstract class BaseActivity extends RxActivity implements BaseActivityInterface , EasyPermissions.PermissionCallbacks{
+public abstract class BaseActivity extends RxActivity implements BaseActivityInterface {
     protected Context mContext;
     protected Unbinder unBinder;
 

@@ -16,5 +16,5 @@ dependencies {
     compile deps.rxlifecycleComponents
     compile deps.eventbus
 
-    compile deps.easypermissions
+    compile deps.permission
 }
