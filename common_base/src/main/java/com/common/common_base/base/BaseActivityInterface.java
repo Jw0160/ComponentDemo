@@ -14,12 +14,12 @@ public interface BaseActivityInterface{
     int getContentViewId();
 
     /**
-     * 初始化应用程序，设置一些初始化数据,获取数据等操作
-     */
-    void initData();
-
-    /**
      * 获取上一个界面传送过来的数据
      */
     void initBundleData();
+
+    /**
+     * 初始化应用程序，设置一些初始化数据,获取数据等操作
+     */
+    void initData();
 }

@@ -15,6 +15,10 @@ dependencies {
     compile deps.rxlifecycle
     compile deps.rxlifecycleComponents
     compile deps.eventbus
+    compile deps.supportAnnotations
 
     compile deps.permission
+    compile deps.glide
+    compile deps.glideokhttp3
+//    annotationProcessor  deps.glidecompiler
 }

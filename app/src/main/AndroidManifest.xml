@@ -17,7 +17,7 @@
          
         </activity>
         <activity android:name=".activity.Main2Activity" />
-        <activity android:name=".activity.TestPermissonsActivity">
+        <activity android:name=".activity.TestGlideActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
