@@ -44,6 +44,6 @@ public class APP{
     }
 
     public static void longToast(String msg){
-        ToastUtil.showToast(INSTANCE, msg, Toast.LENGTH_LONG);
+        ToastUtil.showToast(INSTANCE, msg);
     }
 }

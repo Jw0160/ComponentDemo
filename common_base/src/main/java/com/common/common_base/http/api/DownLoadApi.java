@@ -1,10 +1,6 @@
 package com.common.common_base.http.api;
 
-import com.common.common_base.DemoResult;
-import com.common.common_base.http.BaseHttpResponse;
-
-import java.io.File;
-import java.util.Map;
+import com.common.common_base.modle.DemoResult;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;

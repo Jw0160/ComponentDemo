@@ -10,18 +10,15 @@ import android.webkit.ValueCallback;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
-import com.blankj.utilcode.util.LogUtils;
+
 import com.common.common_base.http.api.DownLoadApi;
 import com.common.common_base.http.exception.ApiException;
 import com.common.common_base.http.observer.HttpRxObservable;
 import com.common.common_base.http.observer.HttpRxObserver;
 import com.common.common_base.http.retrofit.RetrofitUtils;
-import com.common.common_base.utils.AssetsUtils;
+import com.common.common_base.utils.util.LogUtils;
 import com.common.common_base.view.BaseSettingWebView;
-import com.common.router.Router;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.costom.orm.UserDao;
 
 import io.reactivex.disposables.Disposable;
 
@@ -35,6 +32,7 @@ public class MainActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        MyApp.getInstance().getDaoSession().getUserDao().queryBuilder().where(UserDao.Properties.Name.eq("")).list();
     }
 
     private void initView(){

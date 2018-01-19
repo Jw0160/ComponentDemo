@@ -1,7 +1,7 @@
 package com.common.common_base.http.function;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.common.common_base.DemoResult;
+import com.common.common_base.utils.util.LogUtils;
+import com.common.common_base.modle.DemoResult;
 
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;

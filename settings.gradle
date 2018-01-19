@@ -1,6 +1,6 @@
 apply from: rootDir.absolutePath + '/buildSource/utils.gradle'
 
-include ':compiler', ':annotation', ':router', ':buildsrc', ':common_base'
+include ':compiler', ':annotation', ':router', ':buildsrc', ':common_base', ':costom'
 rootProject.name = 'Jw_Demo'
 include ":app"
 //project(":JwShell").projectDir=new File("app")

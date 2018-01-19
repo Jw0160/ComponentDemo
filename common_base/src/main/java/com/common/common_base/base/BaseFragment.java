@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.LogUtils;
+import com.common.common_base.utils.util.LogUtils;
 import com.common.common_base.utils.system.KeyBoardUtil;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 

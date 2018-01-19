@@ -1,9 +1,7 @@
 package com.common.common_base.http.observer;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.common.common_base.DemoResult;
-import com.common.common_base.http.BaseHttpRequest;
-import com.common.common_base.http.BaseHttpResponse;
+import com.common.common_base.utils.util.LogUtils;
+import com.common.common_base.modle.DemoResult;
 import com.common.common_base.http.function.HttpResultFunction;
 import com.common.common_base.http.function.ServerResultFunction;
 import com.google.gson.Gson;

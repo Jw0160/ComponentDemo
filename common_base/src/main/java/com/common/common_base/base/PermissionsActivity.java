@@ -4,7 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.blankj.utilcode.util.LogUtils;
+import com.common.common_base.utils.util.LogUtils;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
 import com.yanzhenjie.permission.Rationale;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public abstract class PermissionsActivity extends BaseActivity implements PermissionListener, RationaleListener{
 
-    protected void requestPermissions(int requestCode, String[] permissions){
+    protected void onRequestPermissions(int requestCode, String[] permissions){
         AndPermission.with(this).requestCode(requestCode).permission(permissions).callback(this).rationale(this).start();
     }
 

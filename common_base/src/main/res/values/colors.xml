@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- 无色 -->
+    <color name="no_color">#00000000</color>
+    <!-- 透明 -->
+    <color name="transparent">#9000</color>
+    <!-- 白色 -->
+    <color name="white">#FFFFFF</color>
+    <!-- 黑色 -->
+    <color name="black">#121212</color>
+    <!--灰色-->
+    <color name="gray">#F4F4F4</color>
+    <!-- 主色 -->
+    <color name="light_green">#24cfa2</color>
+    <!--deep gray-->
+    <color name="deep_gray">#efeded</color>
+    <!-- 头部颜色 -->
+    <color name="top_bg_color">#323a45</color>
+    <!--loadingDataView 相关-->
+    <color name="triangle">#aa72d572</color>  <!--数据加载loadingView的三个图形颜色-->
+    <color name="circle">#aa738ffe</color>
+    <color name="rect">#aae84e40</color>
+    <!--dialog-->
+    <color name="c282828">#282828</color>
+    <color name="cD93535">#D93535</color>
+    <color name="shadow">#25808080</color> <!--//窗口颜色-->
     <color name="colorDefault">#ffffff</color>
     <color name="colorBackground">#f1f0f6</color>
     <color name="colorText">#9b9b9b</color>

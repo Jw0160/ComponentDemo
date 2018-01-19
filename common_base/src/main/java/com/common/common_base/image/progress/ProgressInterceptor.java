@@ -13,7 +13,7 @@ import okhttp3.ResponseBody;
  * @author : wangb
  * @email :
  * @date : 2018/1/4
- * @desc :
+ * @desc :  图片加载进度拦截器
  */
 
 public class ProgressInterceptor implements Interceptor{

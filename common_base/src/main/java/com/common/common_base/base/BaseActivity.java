@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.blankj.utilcode.util.LogUtils;
+import com.common.common_base.utils.util.LogUtils;
 import com.common.common_base.utils.system.AppManagerUtil;
 import com.common.common_base.utils.system.KeyBoardUtil;
 import com.trello.rxlifecycle2.components.RxActivity;

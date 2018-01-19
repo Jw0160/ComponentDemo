@@ -21,7 +21,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-import com.blankj.utilcode.util.LogUtils;
+import com.common.common_base.utils.util.LogUtils;
 import com.common.common_base.utils.KLog;
 import com.common.common_base.utils.network.NetworkUtils;
 

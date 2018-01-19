@@ -1,0 +1,15 @@
+apply from: getLibPath
+
+apply plugin: 'org.greenrobot.greendao'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':common_base')
+    compile deps.greenDao
+    compile deps.greenDaoUpgrade
+}
+greendao {
+    schemaVersion 1  //版本
+    daoPackage 'com.costom.orm' // 一般为app包名+生成文件的文件夹名
+    targetGenDir 'src/main/java' //生成文件路径
+}

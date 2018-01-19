@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.blankj.utilcode.util.LogUtils;
+import com.common.common_base.utils.util.LogUtils;
 import com.common.common_base.base.PermissionsActivity;
 import com.common.jwrouterdemo.R;
 import com.yanzhenjie.permission.Permission;
@@ -38,7 +38,7 @@ public class TestPermissonsActivity extends PermissionsActivity{
     }
 
     public void onBtnClick(View view){
-        requestPermissions(10086, Permission.CAMERA);
+        onRequestPermissions(10086, Permission.CAMERA);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){

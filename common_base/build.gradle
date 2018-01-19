@@ -4,7 +4,6 @@ apply from: getLibPath
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile deps.gson
-    compile deps.utilcode
     compile deps.BaseAdapter
     compile deps.retrofit
     compile deps.retrofitGson
@@ -20,5 +19,6 @@ dependencies {
     compile deps.permission
     compile deps.glide
     compile deps.glideokhttp3
-//    annotationProcessor  deps.glidecompiler
+    compile deps.SmartRefreshLayout
+    compile deps.FlycoRoundView_Lib
 }

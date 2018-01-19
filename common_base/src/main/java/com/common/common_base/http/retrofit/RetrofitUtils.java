@@ -1,6 +1,6 @@
 package com.common.common_base.http.retrofit;
 
-import com.blankj.utilcode.util.LogUtils;
+import com.common.common_base.utils.util.LogUtils;
 import com.common.common_base.http.LoggerInterceptor;
 
 import java.util.concurrent.TimeUnit;

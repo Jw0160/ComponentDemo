@@ -3,7 +3,7 @@ package com.common.common_base.utils.system;
 import android.app.Activity;
 import android.content.Context;
 
-import com.blankj.utilcode.util.LogUtils;
+import com.common.common_base.utils.util.LogUtils;
 import com.common.common_base.R;
 import com.common.common_base.utils.CheckUtil;
 
