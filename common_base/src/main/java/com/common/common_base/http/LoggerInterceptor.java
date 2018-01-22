@@ -36,9 +36,10 @@ public class LoggerInterceptor implements Interceptor{
     @Override
     public Response intercept(Chain chain) throws IOException{
         Request request = chain.request();
-        //        if (LogUtils.isDebug) {  //判断是否打印Log
-        //            logForRequest(request);
-        //        }
+        //                if (LogUtils.isDebug) {  //判断是否打印Log
+        //                    logForRequest(request);
+        //                }
+        logForRequest(request);
         Response response = chain.proceed(request);
         return logForResponse(response);
     }

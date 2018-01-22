@@ -75,25 +75,25 @@ public class MainActivity extends Activity{
     }
 
     public void onDownload(View view){
-        HttpRxObservable
-                .getObservable(RetrofitUtils.get().retrofit().create(DownLoadApi.class).getDownladoResult("jsonObject", "aaa"))
-                .subscribe(new HttpRxObserver(){
-                    @Override
-                    protected void onStart(Disposable d){
-                        Log.d("MainActivity", "Disposable:" + d);
-                    }
-
-                    @Override
-                    protected void onError(ApiException e){
-                        Log.d("MainActivity", "ApiException:" + e);
-                    }
-
-                    @Override
-                    protected void onSuccess(Object response){
-                        Log.d("MainActivity", "response:" + response);
-                    }
-                })
-        ;
+//        HttpRxObservable
+//                .getObservable(RetrofitUtils.get().retrofit().create(DownLoadApi.class).getDownladoResult("jsonObject", "aaa"))
+//                .subscribe(new HttpRxObserver(){
+//                    @Override
+//                    protected void onStart(Disposable d){
+//                        Log.d("MainActivity", "Disposable:" + d);
+//                    }
+//
+//                    @Override
+//                    protected void onError(ApiException e){
+//                        Log.d("MainActivity", "ApiException:" + e);
+//                    }
+//
+//                    @Override
+//                    protected void onSuccess(Object response){
+//                        Log.d("MainActivity", "response:" + response);
+//                    }
+//                })
+//        ;
     }
 
     @Override

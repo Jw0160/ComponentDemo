@@ -1,5 +1,6 @@
 package com.common.common_base.http.observer;
 
+import com.common.common_base.http.retrofit.BaseResult;
 import com.common.common_base.utils.util.LogUtils;
 import com.common.common_base.modle.DemoResult;
 import com.common.common_base.http.function.HttpResultFunction;
@@ -13,6 +14,8 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -30,12 +33,17 @@ public class HttpRxObservable {
      *
      *
      */
-    public static Observable getObservable(Observable<DemoResult> apiObservable) {
+    public static Observable getObservable(Observable<BaseResult> apiObservable) {
        // showLog(request);
         Observable observable = apiObservable
                 .map(new ServerResultFunction())
                 .onErrorResumeNext(new HttpResultFunction<>())
                 .subscribeOn(Schedulers.io())
+//                .doOnSubscribe(new Consumer<Disposable>(){
+//                    @Override
+//                    public void accept(Disposable disposable) throws Exception{
+//                    }
+//                })
                 .observeOn(AndroidSchedulers.mainThread());
         return observable;
     }
@@ -51,7 +59,7 @@ public class HttpRxObservable {
      *
      *
      */
-    public static Observable getObservable(Observable<DemoResult> apiObservable, LifecycleProvider lifecycle) {
+    public static Observable getObservable(Observable<BaseResult> apiObservable, LifecycleProvider lifecycle) {
         //showLog(request);
         Observable observable;
 
@@ -79,7 +87,7 @@ public class HttpRxObservable {
      *
      *
      */
-    public static Observable getObservable(Observable<DemoResult> apiObservable, LifecycleProvider<ActivityEvent> lifecycle, ActivityEvent event) {
+    public static Observable getObservable(Observable<BaseResult> apiObservable, LifecycleProvider<ActivityEvent> lifecycle, ActivityEvent event) {
        // showLog(request);
         Observable observable;
         if (lifecycle != null) {
@@ -107,7 +115,7 @@ public class HttpRxObservable {
      *
      *
      */
-    public static Observable getObservable(Observable<DemoResult> apiObservable, LifecycleProvider<FragmentEvent> lifecycle, FragmentEvent event) {
+    public static Observable getObservable(Observable<BaseResult> apiObservable, LifecycleProvider<FragmentEvent> lifecycle, FragmentEvent event) {
       //  showLog(request);
         Observable observable;
         if (lifecycle != null) {
