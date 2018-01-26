@@ -1,5 +1,8 @@
 package com.common.jwrouterdemo.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -9,15 +12,17 @@ import com.common.common_base.http.exception.ApiException;
 import com.common.common_base.http.observer.HttpRxObservable;
 import com.common.common_base.http.observer.HttpRxObserver;
 import com.common.common_base.http.retrofit.RetrofitUtils;
+import com.common.common_base.modle.LoginBean;
 import com.common.common_base.utils.JSONUtil;
 import com.common.common_base.utils.util.LogUtils;
 import com.common.jwrouterdemo.R;
-import com.common.common_base.modle.LoginBean;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
+import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 /**
@@ -32,6 +37,8 @@ public class TestRetrofitActivity extends BaseActivity{
     Button mBtnConnect;
     @BindView(R.id.tv_show_content)
     TextView mTvShowContent;
+    @BindView(R.id.btn_jump)
+    Button mBtnJump;
 
     @Override
     public int getContentViewId(){
@@ -44,12 +51,18 @@ public class TestRetrofitActivity extends BaseActivity{
 
     @Override
     public void initData(){
+        mBtnJump.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(TestRetrofitActivity.this, TestRetrofitActivity.class));
+            }
+        });
     }
 
     @OnClick(R.id.btn_connect)
     public void onViewClicked(){
         String lBody = JSONUtil.toJSON(new LoginBean("13510220341", "1234567", 11992444753960964L));
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),
                 lBody);
         Observable lObservable = HttpRxObservable.getObservable(RetrofitUtils.get().retrofit().create(BaseApi.class).doPost("login.json", new LoginBean("13510220341", "1234567", 11992444753960964L)));
         lObservable.subscribe(new HttpRxObserver(){
@@ -68,5 +81,11 @@ public class TestRetrofitActivity extends BaseActivity{
                 LogUtils.e("onSuccess:" + ((String) response).toString());
             }
         });
+    }
+
+    @Override
+    public void onBackPressed(){
+        LogUtils.e("onBack...........");
+        super.onBackPressed();
     }
 }

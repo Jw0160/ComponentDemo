@@ -8,8 +8,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.common.common_base.R;
 import com.common.common_base.utils.util.LogUtils;
 import com.common.common_base.utils.system.KeyBoardUtil;
+import com.common.common_base.widget.titlebar.CommonTitleBar;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -35,6 +37,11 @@ public abstract class BaseFragment extends RxFragment implements BaseActivityInt
      * Fragment根View
      */
     protected View rootView;
+    /**
+     * 全局头部栏
+     */
+    protected CommonTitleBar mTitleBar;
+
     protected boolean isVisible = false;//当前Fragment是否可见
     protected boolean isInitView = false;//是否与View建立起映射关系
     protected boolean parentIsVisible = true;//是否与View建立起映射关系
@@ -65,6 +72,11 @@ public abstract class BaseFragment extends RxFragment implements BaseActivityInt
         LogUtils.e(TAG + ":onCreateView");
         rootView = inflater.inflate(getContentViewId(), container, false);
         unbinder = ButterKnife.bind(this, rootView);
+        try{
+            mTitleBar= (CommonTitleBar) getContentView().findViewById(R.id.title_bar);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         isInitView = true;
         rootView.setOnTouchListener(new View.OnTouchListener(){
             @Override
@@ -81,6 +93,15 @@ public abstract class BaseFragment extends RxFragment implements BaseActivityInt
         return rootView;
     }
 
+
+    /**
+     *  获取Fragment当前布局实例
+     *
+     * @return View 返回View的实例
+     */
+    public View getContentView() {
+        return rootView;
+    }
     /**
      * 重写父类方法，完成初始化类的工作，调用 initView();requestServiceHook();initData();
      *

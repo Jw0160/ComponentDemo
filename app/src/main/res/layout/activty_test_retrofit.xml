@@ -10,6 +10,12 @@
         android:layout_height="wrap_content"
         android:text="connect" />
     
+    <Button
+        android:id="@+id/btn_jump"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="jump" />
+    
     <TextView
         android:id="@+id/tv_show_content"
         android:layout_width="match_parent"

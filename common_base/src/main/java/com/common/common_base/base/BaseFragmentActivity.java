@@ -6,9 +6,11 @@ import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.common.common_base.R;
 import com.common.common_base.utils.util.LogUtils;
 import com.common.common_base.utils.system.AppManagerUtil;
 import com.common.common_base.utils.system.KeyBoardUtil;
+import com.common.common_base.widget.titlebar.CommonTitleBar;
 import com.trello.rxlifecycle2.components.support.RxFragmentActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,6 +29,11 @@ public abstract class BaseFragmentActivity extends RxFragmentActivity implements
     protected Context mContext;
     protected Unbinder unBinder;
     private String TAG;
+
+    /**
+     * 全局头部栏
+     */
+    protected CommonTitleBar mTitleBar;
 
     /**
      * 回调函数
@@ -48,6 +55,11 @@ public abstract class BaseFragmentActivity extends RxFragmentActivity implements
         setContentView(getContentViewId());
         mContext = this;
         unBinder = ButterKnife.bind(this);
+        try{
+            mTitleBar = (CommonTitleBar) findViewById(R.id.title_bar);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         initBundleData();
         initData();
     }

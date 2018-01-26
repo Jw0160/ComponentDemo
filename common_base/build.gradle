@@ -21,4 +21,6 @@ dependencies {
     compile deps.glideokhttp3
     compile deps.SmartRefreshLayout
     compile deps.FlycoRoundView_Lib
+    compile deps.slidableactivity
+    compile deps.circleimageview
 }

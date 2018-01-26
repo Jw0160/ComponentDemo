@@ -3,7 +3,7 @@
     <!-- 无色 -->
     <color name="no_color">#00000000</color>
     <!-- 透明 -->
-    <color name="transparent">#9000</color>
+    <color name="transparent">#00000000</color>
     <!-- 白色 -->
     <color name="white">#FFFFFF</color>
     <!-- 黑色 -->

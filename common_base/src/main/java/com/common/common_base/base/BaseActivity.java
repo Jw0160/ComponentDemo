@@ -1,14 +1,29 @@
 package com.common.common_base.base;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
+import com.common.common_base.R;
+import com.common.common_base.utils.system.SystemBarTintManager;
 import com.common.common_base.utils.util.LogUtils;
 import com.common.common_base.utils.system.AppManagerUtil;
 import com.common.common_base.utils.system.KeyBoardUtil;
+import com.common.common_base.widget.titlebar.CommonTitleBar;
+import com.r0adkll.slidr.Slidr;
+import com.r0adkll.slidr.model.SlidrConfig;
+import com.r0adkll.slidr.model.SlidrInterface;
+import com.r0adkll.slidr.model.SlidrListener;
+import com.r0adkll.slidr.model.SlidrPosition;
 import com.trello.rxlifecycle2.components.RxActivity;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -17,6 +32,8 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static android.R.id.primary;
+
 /**
  * @author : wangb
  * @email :
@@ -24,12 +41,15 @@ import butterknife.Unbinder;
  * @desc :
  */
 
-public abstract class BaseActivity extends RxActivity implements BaseActivityInterface {
+public abstract class BaseActivity extends RxAppCompatActivity implements BaseActivityInterface{
     protected Context mContext;
     protected Unbinder unBinder;
-
-
+    /**
+     * 全局头部栏
+     */
+    protected CommonTitleBar mTitleBar;
     private String TAG;
+    protected SlidrInterface mSlidrInterface;
 
     /**
      * 回调函数
@@ -51,8 +71,66 @@ public abstract class BaseActivity extends RxActivity implements BaseActivityInt
         setContentView(getContentViewId());
         mContext = this;
         unBinder = ButterKnife.bind(this);
+        try{
+            mTitleBar = (CommonTitleBar) findViewById(R.id.title_bar);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        initSlidable();
+        initSystemBar(this);
         initBundleData();
         initData();
+    }
+
+    /**
+     * @param activity 当前活动Activtiy实例
+     *                 void
+     */
+    protected void initSystemBar(Activity activity){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            setTranslucentStatus(activity, true);
+        }
+        SystemBarTintManager tintManager = new SystemBarTintManager(activity);
+        tintManager.setStatusBarTintEnabled(true);
+        // 使用颜色资源
+        tintManager.setNavigationBarTintEnabled(true);
+        tintManager.setStatusBarTintColor(Color.parseColor("#00000000"));
+    }
+
+    /**
+     * 设置系统顶部栏和程序主题颜色统一
+     *
+     * @param activity 当前活动Activity实例
+     * @param on       void
+     */
+    @TargetApi(19)
+    private void setTranslucentStatus(Activity activity, boolean on){
+        Window win = activity.getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if(on){
+            winParams.flags |= bits;
+        }else{
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
+    }
+
+    private void initSlidable(){
+        SlidrConfig config = new SlidrConfig.Builder()
+                //                .primaryColor(Color.BLUE)
+                //                .secondaryColor(getResources().getColor())
+                //                                .position(SlidrPosition.LEFT|RIGHT|TOP|BOTTOM|VERTICAL|HORIZONTAL)
+                //                .sensitivity(1f)
+                //                .scrimColor(Color.BLACK)
+                //                .scrimStartAlpha(0.8f)
+                //                .scrimEndAlpha(0f)
+                //                .velocityThreshold(2400)
+                //                .distanceThreshold(0.25f)
+                .edge(true)
+                //                .edgeSize(0.18f) // The % of the screen that counts as the edge, default 18%
+                .build();
+        mSlidrInterface = Slidr.attach(this, config);
     }
 
     @Override

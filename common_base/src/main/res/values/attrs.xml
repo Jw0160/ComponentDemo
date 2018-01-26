@@ -11,4 +11,21 @@
         <attr name="loadingText" format="string" />
         <attr name="loadingTextAppearance" format="reference" />
     </declare-styleable>
+    <declare-styleable name="MaterialBadgeTextView">
+        <attr name="mbtv_backgroundColor" format="color" />
+        <attr name="mbtv_border_width" format="dimension" />
+        <attr name="mbtv_border_color" format="color" />
+        <attr name="mbtv_border_alpha" format="float" />
+        <attr name="mbtv_type" format="enum">
+            <enum name="shadow_gradual" value="1" />
+            <enum name="shadow_alpha" value="2" />
+        </attr>
+    </declare-styleable>
+    <!-- 自定义通用的titileBar -->
+    <declare-styleable name="CommonTitleBar">
+        <attr name="barBackground" format="reference|color" />
+        <attr name="returnIsClick" format="boolean" />
+        <attr name="rightAndReturnTextSize" format="dimension" />
+        <attr name="middleTextSize" format="dimension" />
+    </declare-styleable>
 </resources>

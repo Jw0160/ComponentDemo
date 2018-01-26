@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/common_top_root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:maowo="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@android:color/white">
+    
+    <ImageView
+        android:id="@+id/img_title_bac"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:visibility="visible" />
+    
+    <View
+        android:id="@+id/bac_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#32000000"
+        android:visibility="gone" />
+    
+    <LinearLayout
+        android:id="@+id/comtop_return_ll"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+        
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            
+            <ImageView
+                android:id="@+id/comtop_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingBottom="12dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="12dp"
+                />
+            
+            <com.common.common_base.widget.badge.MaterialBadgeTextView
+                android:id="@+id/tips_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|right"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:visibility="invisible"
+                maowo:mbtv_backgroundColor="#EF4738" />
+        </FrameLayout>
+        
+        <ImageView
+            android:id="@+id/comtop_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingBottom="12dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="12dp"
+            android:visibility="gone" />
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/customer_left_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_vertical"
+        android:layout_toRightOf="@+id/comtop_return_ll"
+        android:gravity="center_vertical"
+        android:textColor="@color/c282828"
+        android:visibility="gone" />
+    
+    <TextView
+        android:id="@+id/comtop_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:ellipsize="end"
+        android:maxLength="12"
+        android:gravity="center_vertical"
+        android:text="MAOWO"
+        android:textColor="@color/c282828"
+        android:textSize="15sp" />
+    
+    <TextView
+        android:id="@+id/customer_right_button"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/comtop_right_img_ll"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/c282828"
+        android:textSize="13sp"
+        android:visibility="gone" />
+    
+    <LinearLayout
+        android:id="@+id/comtop_right_img_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical">
+        
+        <ImageView
+            android:id="@+id/img_btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="12dp"
+            android:visibility="gone" />
+        
+        <ImageView
+            android:id="@+id/img_btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="12dp"
+            android:visibility="gone" />
+    </LinearLayout>
+</RelativeLayout>

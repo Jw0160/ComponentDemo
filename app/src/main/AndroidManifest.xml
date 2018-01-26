@@ -22,7 +22,13 @@
          
         </activity>
         <activity android:name=".activity.Main2Activity" />
-        <activity android:name=".activity.TestRetrofitActivity">
+        <activity android:name=".activity.TestToorBarActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.TestAvatarImageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
