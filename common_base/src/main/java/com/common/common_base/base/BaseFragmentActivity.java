@@ -2,11 +2,11 @@ package com.common.common_base.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.common.common_base.R;
+import com.common.common_base.listener.LifeCycleListener;
 import com.common.common_base.utils.util.LogUtils;
 import com.common.common_base.utils.system.AppManagerUtil;
 import com.common.common_base.utils.system.KeyBoardUtil;
@@ -25,7 +25,7 @@ import butterknife.Unbinder;
  * @desc :
  */
 
-public abstract class BaseFragmentActivity extends RxFragmentActivity implements BaseActivityInterface{
+public abstract class BaseFragmentActivity extends RxFragmentActivity implements BaseConfigInterface{
     protected Context mContext;
     protected Unbinder unBinder;
     private String TAG;
@@ -38,19 +38,20 @@ public abstract class BaseFragmentActivity extends RxFragmentActivity implements
     /**
      * 回调函数
      */
-    //    public LifeCycleListener mListener;
-    //
-    //    public void setOnLifeCycleListener(LifeCycleListener listener){
-    //        mListener = listener;
-    //    }
+    public LifeCycleListener mListener;
+
+    public void setOnLifeCycleListener(LifeCycleListener listener){
+        mListener = listener;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         TAG = this.getClass().getSimpleName();
         LogUtils.e(TAG + ":onCreate");
-        //        if(mListener != null){
-        //            mListener.onCreate(savedInstanceState);
-        //        }
+        if(mListener != null){
+            mListener.onCreate(savedInstanceState);
+        }
         AppManagerUtil.getInstance().addActivity(this);
         setContentView(getContentViewId());
         mContext = this;
@@ -67,49 +68,49 @@ public abstract class BaseFragmentActivity extends RxFragmentActivity implements
     @Override
     protected void onStart(){
         super.onStart();
-        //        if(mListener != null){
-        //            mListener.onStart();
-        //        }
+        if(mListener != null){
+            mListener.onStart();
+        }
     }
 
     @Override
     protected void onRestart(){
         super.onRestart();
-        //        if(mListener != null){
-        //            mListener.onRestart();
-        //        }
+        if(mListener != null){
+            mListener.onRestart();
+        }
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-        //        if(mListener != null){
-        //            mListener.onResume();
-        //        }
+        if(mListener != null){
+            mListener.onResume();
+        }
     }
 
     @Override
     protected void onPause(){
         super.onPause();
-        //        if(mListener != null){
-        //            mListener.onPause();
-        //        }
+        if(mListener != null){
+            mListener.onPause();
+        }
     }
 
     @Override
     protected void onStop(){
         super.onStop();
-        //        if(mListener != null){
-        //            mListener.onStop();
-        //        }
+        if(mListener != null){
+            mListener.onStop();
+        }
     }
 
     @Override
     protected void onDestroy(){
         super.onDestroy();
-        //        if(mListener != null){
-        //            mListener.onDestroy();
-        //        }
+        if(mListener != null){
+            mListener.onDestroy();
+        }
         //移除view绑定
         if(unBinder != null){
             unBinder.unbind();

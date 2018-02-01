@@ -7,7 +7,7 @@ package com.common.common_base.base;
  * @desc :
  */
 
-public interface BaseActivityInterface{
+public interface BaseConfigInterface{
     /**
      * 获取显示view的xml文件ID
      */

@@ -24,13 +24,25 @@ import java.util.List;
 
 public class PermissionRequestUtil{
 
+    private static PermissionRequestUtil sPermissionRequestUtil;
     private Context mContext;
     private PermissionCallback mCallback;
     private static final int REQUEST_CODE = 10086;
 
-    public PermissionRequestUtil(Context context, PermissionCallback callback){
+    private PermissionRequestUtil(Context context, PermissionCallback callback){
         mContext = context;
         mCallback = callback;
+    }
+
+    public static PermissionRequestUtil getInstance(Context context, PermissionCallback callback){
+        if(sPermissionRequestUtil != null){
+            synchronized(PermissionRequestUtil.class){
+                if(sPermissionRequestUtil != null){
+                    sPermissionRequestUtil = new PermissionRequestUtil(context, callback);
+                }
+            }
+        }
+        return sPermissionRequestUtil;
     }
 
     public interface PermissionCallback{

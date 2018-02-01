@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.common.common_base.R;
+import com.common.common_base.listener.LifeCycleListener;
 import com.common.common_base.utils.system.SystemBarTintManager;
 import com.common.common_base.utils.util.LogUtils;
 import com.common.common_base.utils.system.AppManagerUtil;
@@ -20,19 +21,12 @@ import com.common.common_base.widget.titlebar.CommonTitleBar;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
 import com.r0adkll.slidr.model.SlidrInterface;
-import com.r0adkll.slidr.model.SlidrListener;
-import com.r0adkll.slidr.model.SlidrPosition;
-import com.trello.rxlifecycle2.components.RxActivity;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.List;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
-import static android.R.id.primary;
 
 /**
  * @author : wangb
@@ -41,7 +35,7 @@ import static android.R.id.primary;
  * @desc :
  */
 
-public abstract class BaseActivity extends RxAppCompatActivity implements BaseActivityInterface{
+public abstract class BaseActivity extends RxAppCompatActivity implements BaseConfigInterface{
     protected Context mContext;
     protected Unbinder unBinder;
     /**
@@ -54,19 +48,20 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseAc
     /**
      * 回调函数
      */
-    //    public LifeCycleListener mListener;
-    //
-    //    public void setOnLifeCycleListener(LifeCycleListener listener){
-    //        mListener = listener;
-    //    }
+    public LifeCycleListener mListener;
+
+    public void setOnLifeCycleListener(LifeCycleListener listener){
+        mListener = listener;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         TAG = this.getClass().getSimpleName();
         LogUtils.e(TAG + ":onCreate");
-        //        if(mListener != null){
-        //            mListener.onCreate(savedInstanceState);
-        //        }
+                if(mListener != null){
+                    mListener.onCreate(savedInstanceState);
+                }
         AppManagerUtil.getInstance().addActivity(this);
         setContentView(getContentViewId());
         mContext = this;
@@ -136,49 +131,49 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseAc
     @Override
     protected void onStart(){
         super.onStart();
-        //        if(mListener != null){
-        //            mListener.onStart();
-        //        }
+                if(mListener != null){
+                    mListener.onStart();
+                }
     }
 
     @Override
     protected void onRestart(){
         super.onRestart();
-        //        if(mListener != null){
-        //            mListener.onRestart();
-        //        }
+                if(mListener != null){
+                    mListener.onRestart();
+                }
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-        //        if(mListener != null){
-        //            mListener.onResume();
-        //        }
+                if(mListener != null){
+                    mListener.onResume();
+                }
     }
 
     @Override
     protected void onPause(){
         super.onPause();
-        //        if(mListener != null){
-        //            mListener.onPause();
-        //        }
+                if(mListener != null){
+                    mListener.onPause();
+                }
     }
 
     @Override
     protected void onStop(){
         super.onStop();
-        //        if(mListener != null){
-        //            mListener.onStop();
-        //        }
+                if(mListener != null){
+                    mListener.onStop();
+                }
     }
 
     @Override
     protected void onDestroy(){
         super.onDestroy();
-        //        if(mListener != null){
-        //            mListener.onDestroy();
-        //        }
+                if(mListener != null){
+                    mListener.onDestroy();
+                }
         //移除view绑定
         if(unBinder != null){
             unBinder.unbind();

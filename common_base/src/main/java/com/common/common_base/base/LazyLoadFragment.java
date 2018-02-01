@@ -2,9 +2,6 @@ package com.common.common_base.base;
 
 import android.os.Bundle;
 
-/**
- * Created by Meiji on 2016/12/27.
- */
 
 public abstract class LazyLoadFragment extends BaseFragment {
 

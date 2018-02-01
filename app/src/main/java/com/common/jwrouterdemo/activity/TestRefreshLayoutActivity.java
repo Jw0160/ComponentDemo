@@ -73,6 +73,7 @@ public class TestRefreshLayoutActivity extends BaseActivity{
         mRcvLayout.setLayoutManager(new LinearLayoutManager(this));
         mRcvLayout.addItemDecoration(new DividerItemDecoration(this, VERTICAL));
         mAdapter = new BaseAdapter(mData);
+        mAdapter.openLoadAnimation();
         mRcvLayout.setAdapter(mAdapter);
     }
 
