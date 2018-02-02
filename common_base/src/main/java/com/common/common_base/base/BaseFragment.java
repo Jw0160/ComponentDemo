@@ -92,6 +92,7 @@ public abstract class BaseFragment extends RxFragment implements BaseConfigInter
                 return false;
             }
         });
+
         return rootView;
     }
 

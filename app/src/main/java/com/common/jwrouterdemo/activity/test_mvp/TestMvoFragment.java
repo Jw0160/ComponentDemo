@@ -23,10 +23,21 @@ import butterknife.Unbinder;
  */
 
 public class TestMvoFragment extends LazyLoadFragment implements ITest.View{
+    private static TestMvoFragment mTestMvoFragment;
     @BindView(R.id.tv_test_fragment)
     TextView mTvTestFragment;
 
     private TestMvpPresenter mTestMvpPresenter = new TestMvpPresenter(this);
+    private String mString;
+
+    private TestMvoFragment(){
+    }
+
+    public static TestMvoFragment getInstance(Bundle args){
+        mTestMvoFragment = new TestMvoFragment();
+        mTestMvoFragment.setArguments(args);
+        return mTestMvoFragment;
+    }
 
     @Override
     public int getContentViewId(){
@@ -35,10 +46,15 @@ public class TestMvoFragment extends LazyLoadFragment implements ITest.View{
 
     @Override
     public void initBundleData(){
+        mTvTestFragment.setText(mTvTestFragment.getText() + getArguments().getString("10086"));
+        LogUtils.e("initBundleData" + getArguments().getString("10086"));
     }
 
     @Override
     public void initData(){
+        mTvTestFragment.setText(mTvTestFragment.getText() + getArguments().getString("10086"));
+        LogUtils.e("initData" + getArguments().getString("10086"));
+        LogUtils.e("initData:mString" + mString);
         mTvTestFragment.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -62,5 +78,8 @@ public class TestMvoFragment extends LazyLoadFragment implements ITest.View{
 
     @Override
     public void fetchData(){
+        mString = getArguments().getString("10086");
+        mTvTestFragment.setText(mTvTestFragment.getText() + getArguments().getString("10086"));
+        LogUtils.e("fetchData" + mString);
     }
 }
