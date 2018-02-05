@@ -418,7 +418,7 @@ class RealRouter extends AbsRouter{
     public void go(android.app.Fragment fragment){
         Context context = fragment.getContext();
         go(context);
-        //        Activity activity = fragment.getActivity();
+        //        Activity activity = fragment.getView();
         //        Intent intent = getIntent(activity);
         //        if(intent == null){
         //            return;

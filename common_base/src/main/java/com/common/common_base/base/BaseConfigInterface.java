@@ -13,6 +13,8 @@ public interface BaseConfigInterface{
      */
     int getContentViewId();
 
+
+
     /**
      * 获取上一个界面传送过来的数据
      */

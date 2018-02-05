@@ -892,7 +892,7 @@ public final class FragmentUtils{
             Fragment fragment = fragments.get(i);
             if(fragment != null){
                 if(isInStack){
-                    if(fragment.getArguments().getBoolean(ARGS_IS_ADD_STACK)){
+                    if(fragment.getArguments() != null && fragment.getArguments().getBoolean(ARGS_IS_ADD_STACK)){
                         return fragment;
                     }
                 }else{

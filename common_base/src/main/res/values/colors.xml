@@ -4,10 +4,9 @@
     <color name="colorPrimaryDark">#C2185B</color>
     <color name="colorAccent">#FF5252</color>
     <color name="textColorPrimary">#616161</color>
-    <color name="viewBackground">@android:color/white</color>
+    <color name="viewBackground">@color/white</color>
     <color name="windowBackground">@color/Grey10</color>
     <color name="line_divider">@color/Grey30</color>
-    
     <!--灰度-->
     <color name="Grey0">#FAFAFA</color>
     <color name="Grey10">#F5F5F5</color>
@@ -19,8 +18,6 @@
     <color name="Grey70">#616161</color>
     <color name="Grey80">#424242</color>
     <color name="Grey90">#212121</color>
-    
-    
     <color name="Red">#f44336</color>
     <color name="Pink">#e91e63</color>
     <color name="Purple">#9c27b0</color>
@@ -60,7 +57,6 @@
     <color name="triangle">#aa72d572</color>  <!--数据加载loadingView的三个图形颜色-->
     <color name="circle">#aa738ffe</color>
     <color name="rect">#aae84e40</color>
-    
     <!--dialog-->
     <color name="c282828">#282828</color>
     <color name="cD93535">#D93535</color>

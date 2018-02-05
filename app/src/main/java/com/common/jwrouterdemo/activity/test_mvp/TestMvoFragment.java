@@ -1,13 +1,18 @@
 package com.common.jwrouterdemo.activity.test_mvp;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewCompat;
+import android.transition.Fade;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.common.common_base.base.BaseFragment;
 import com.common.common_base.base.LazyLoadFragment;
+import com.common.common_base.utils.util.FragmentUtils;
 import com.common.common_base.utils.util.LogUtils;
 import com.common.jwrouterdemo.R;
 
@@ -23,17 +28,23 @@ import butterknife.Unbinder;
  */
 
 public class TestMvoFragment extends LazyLoadFragment implements ITest.View{
-    private static TestMvoFragment mTestMvoFragment;
     @BindView(R.id.tv_test_fragment)
     TextView mTvTestFragment;
+    @BindView(R.id.img_1)
+    ImageView mImg1;
 
     private TestMvpPresenter mTestMvpPresenter = new TestMvpPresenter(this);
     private String mString;
+    private FragmentManager mSupportFragmentManager;
+    ///////////////////////////////////////////////////////////////////////////
+    // // STOPSHIP: 2018/2/5
+    ///////////////////////////////////////////////////////////////////////////
 
     private TestMvoFragment(){
     }
 
     public static TestMvoFragment getInstance(Bundle args){
+        TestMvoFragment mTestMvoFragment;
         mTestMvoFragment = new TestMvoFragment();
         mTestMvoFragment.setArguments(args);
         return mTestMvoFragment;
@@ -46,14 +57,42 @@ public class TestMvoFragment extends LazyLoadFragment implements ITest.View{
 
     @Override
     public void initBundleData(){
-        mTvTestFragment.setText(mTvTestFragment.getText() + getArguments().getString("10086"));
-        LogUtils.e("initBundleData" + getArguments().getString("10086"));
+        //        mTvTestFragment.setText(mTvTestFragment.getText() + getArguments().getString("10086"));
+        //        LogUtils.e("initBundleData" + getArguments().getString("10086"));
+        mSupportFragmentManager = mContext.getSupportFragmentManager();
+        mImg1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(FragmentUtils.getTopInStack(mSupportFragmentManager) instanceof TestMvpFragment2){
+                    return;
+                }
+                TestMvpFragment2 lTestMvpFragment2 = TestMvpFragment2.newInstance(null);
+                //                setExitTransition(new Fade());
+                //                lTestMvpFragment2.setEnterTransition(new Fade());
+                //                lTestMvpFragment2.setSharedElementEnterTransition(new DetailTransition());
+                //                lTestMvpFragment2.setSharedElementReturnTransition(new DetailTransition());
+                //                //
+                                ViewCompat.setTransitionName(mImg1, "image");
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                    lTestMvpFragment2.setSharedElementEnterTransition(new DetailTransition());
+                    setExitTransition(new Fade());
+                    lTestMvpFragment2.setEnterTransition(new Fade());
+                    lTestMvpFragment2.setSharedElementReturnTransition(new DetailTransition());
+                }
+                FragmentUtils.replace(mSupportFragmentManager, lTestMvpFragment2, R.id.container, true, mImg1);
+                //                getActivity().getSupportFragmentManager().beginTransaction()
+                //                        .addSharedElement(mImg1, "image")
+                //                        .replace(R.id.container, lTestMvpFragment2)
+                //                        .addToBackStack(this.getClass().getSimpleName())
+                //                        .commit();
+            }
+        });
     }
 
     @Override
     public void initData(){
-        mTvTestFragment.setText(mTvTestFragment.getText() + getArguments().getString("10086"));
-        LogUtils.e("initData" + getArguments().getString("10086"));
+        //        mTvTestFragment.setText(mTvTestFragment.getText() + getArguments().getString("10086"));
+        //        LogUtils.e("initData" + getArguments().getString("10086"));
         LogUtils.e("initData:mString" + mString);
         mTvTestFragment.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -78,8 +117,8 @@ public class TestMvoFragment extends LazyLoadFragment implements ITest.View{
 
     @Override
     public void fetchData(){
-        mString = getArguments().getString("10086");
-        mTvTestFragment.setText(mTvTestFragment.getText() + getArguments().getString("10086"));
+        //        mString = getArguments().getString("10086");
+        //        mTvTestFragment.setText(mTvTestFragment.getText() + getArguments().getString("10086"));
         LogUtils.e("fetchData" + mString);
     }
 }

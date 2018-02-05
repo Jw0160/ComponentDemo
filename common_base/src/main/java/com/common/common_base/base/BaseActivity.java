@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -59,9 +60,9 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseCo
         super.onCreate(savedInstanceState);
         TAG = this.getClass().getSimpleName();
         LogUtils.e(TAG + ":onCreate");
-                if(mListener != null){
-                    mListener.onCreate(savedInstanceState);
-                }
+        if(mListener != null){
+            mListener.onCreate(savedInstanceState);
+        }
         AppManagerUtil.getInstance().addActivity(this);
         setContentView(getContentViewId());
         mContext = this;
@@ -71,10 +72,15 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseCo
         }catch(Exception e){
             e.printStackTrace();
         }
-        initSlidable();
-        initSystemBar(this);
+//        initSlidable();
+//        initSystemBar(this);
         initBundleData();
         initData();
+    }
+
+    protected void initToolBar(Toolbar toolbar, String title){
+        toolbar.setTitle(title);
+        setSupportActionBar(toolbar);
     }
 
     /**
@@ -131,49 +137,49 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseCo
     @Override
     protected void onStart(){
         super.onStart();
-                if(mListener != null){
-                    mListener.onStart();
-                }
+        if(mListener != null){
+            mListener.onStart();
+        }
     }
 
     @Override
     protected void onRestart(){
         super.onRestart();
-                if(mListener != null){
-                    mListener.onRestart();
-                }
+        if(mListener != null){
+            mListener.onRestart();
+        }
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-                if(mListener != null){
-                    mListener.onResume();
-                }
+        if(mListener != null){
+            mListener.onResume();
+        }
     }
 
     @Override
     protected void onPause(){
         super.onPause();
-                if(mListener != null){
-                    mListener.onPause();
-                }
+        if(mListener != null){
+            mListener.onPause();
+        }
     }
 
     @Override
     protected void onStop(){
         super.onStop();
-                if(mListener != null){
-                    mListener.onStop();
-                }
+        if(mListener != null){
+            mListener.onStop();
+        }
     }
 
     @Override
     protected void onDestroy(){
         super.onDestroy();
-                if(mListener != null){
-                    mListener.onDestroy();
-                }
+        if(mListener != null){
+            mListener.onDestroy();
+        }
         //移除view绑定
         if(unBinder != null){
             unBinder.unbind();

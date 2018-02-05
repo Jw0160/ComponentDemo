@@ -3,6 +3,7 @@ package com.common.common_base.base;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,7 +34,7 @@ public abstract class BaseFragment extends RxFragment implements BaseConfigInter
     /**
      * Fragment运行时的Context
      */
-    protected BaseFragmentActivity mContext;
+    protected FragmentActivity mContext;
     /**
      * Fragment根View
      */
@@ -57,7 +58,7 @@ public abstract class BaseFragment extends RxFragment implements BaseConfigInter
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
-        this.mContext = (BaseFragmentActivity) context;
+        this.mContext = (FragmentActivity) context;
     }
 
     /**

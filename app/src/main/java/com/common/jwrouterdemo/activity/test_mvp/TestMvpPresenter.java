@@ -17,6 +17,6 @@ public class TestMvpPresenter extends BasePresenter<ITest.View> implements ITest
 
     @Override
     public void doLogin(String name, String pwd){
-        getActivity().onLogin();
+        getView().onLogin();
     }
 }

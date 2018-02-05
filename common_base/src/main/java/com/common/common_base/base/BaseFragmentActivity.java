@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toolbar;
 
 import com.common.common_base.R;
 import com.common.common_base.listener.LifeCycleListener;
@@ -64,6 +65,8 @@ public abstract class BaseFragmentActivity extends RxFragmentActivity implements
         initBundleData();
         initData();
     }
+
+
 
     @Override
     protected void onStart(){

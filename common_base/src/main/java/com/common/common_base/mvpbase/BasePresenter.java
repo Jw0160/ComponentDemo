@@ -1,7 +1,6 @@
 package com.common.common_base.mvpbase;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 
 import com.common.common_base.base.BaseActivity;
 import com.common.common_base.base.BaseFragment;
@@ -19,31 +18,31 @@ import java.lang.ref.WeakReference;
  */
 
 public class BasePresenter<T extends IBaseView> implements IBasePresenter, LifeCycleListener{
-    private Reference<T> mActivityRef;
-    protected T mActivity;
+    private Reference<T> mViewRef;
+    protected T mView;
 
-    public BasePresenter(T activity){
-        attachActivity(activity);
-        setListener(activity);
+    public BasePresenter(T target){
+        attachTarget(target);
+        setListener(target);
     }
 
     /**
      * 关联
      *
-     * @param activity
+     * @param target
      */
-    private void attachActivity(T activity){
-        mActivityRef = new WeakReference<T>(activity);
-        mActivity = mActivityRef.get();
+    private void attachTarget(T target){
+        mViewRef = new WeakReference<T>(target);
+        mView = mViewRef.get();
     }
 
     /**
      * 销毁
      */
-    private void detachActivity(){
-        if(isActivityAttached()){
-            mActivityRef.clear();
-            mActivityRef = null;
+    private void detachTarget(){
+        if(isTargetAttached()){
+            mViewRef.clear();
+            mViewRef = null;
         }
     }
 
@@ -52,31 +51,31 @@ public class BasePresenter<T extends IBaseView> implements IBasePresenter, LifeC
      *
      * @return
      */
-    public T getActivity(){
-        if(mActivityRef == null){
+    public T getView(){
+        if(mViewRef == null){
             return null;
         }
-        return mActivityRef.get();
+        return mViewRef.get();
     }
 
     /**
      * 是否已经关联
      */
-    public boolean isActivityAttached(){
-        return mActivityRef != null && mActivityRef.get() != null;
+    public boolean isTargetAttached(){
+        return mViewRef != null && mViewRef.get() != null;
     }
 
     /**
      * 设置生命周期监听
      */
-    private void setListener(T activity){
-        if(getActivity() != null){
-            if(activity instanceof BaseActivity){
-                ((BaseActivity) getActivity()).setOnLifeCycleListener(this);
-            }else if(activity instanceof BaseFragmentActivity){
-                ((BaseFragmentActivity) getActivity()).setOnLifeCycleListener(this);
-            }else if(activity instanceof BaseFragment){
-                ((BaseFragment) getActivity()).setOnLifeCycleListener(this);
+    private void setListener(T listener){
+        if(getView() != null){
+            if(listener instanceof BaseActivity){
+                ((BaseActivity) getView()).setOnLifeCycleListener(this);
+            }else if(listener instanceof BaseFragmentActivity){
+                ((BaseFragmentActivity) getView()).setOnLifeCycleListener(this);
+            }else if(listener instanceof BaseFragment){
+                ((BaseFragment) getView()).setOnLifeCycleListener(this);
             }
         }
     }
@@ -107,6 +106,6 @@ public class BasePresenter<T extends IBaseView> implements IBasePresenter, LifeC
 
     @Override
     public void onDestroy(){
-        detachActivity();
+        detachTarget();
     }
 }
