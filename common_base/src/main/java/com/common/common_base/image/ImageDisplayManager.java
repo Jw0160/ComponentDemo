@@ -26,17 +26,17 @@ import java.io.File;
  * 图片加载工具类，包括网路图片，本地图片，特殊图片的加载
  * V1.0
  */
-public class ImageDisplayManager extends ImageDisplayBase {
+public class ImageDisplayManager extends ImageDisplayBase{
     private static final String TAG = "ImageDisplyHelper";
     private static ImageDisplayManager mInstance;
 
-    private ImageDisplayManager() {
+    private ImageDisplayManager(){
     }
 
-    public static ImageDisplayManager getInstance() {
-        if (mInstance == null) {
-            synchronized (ImageDisplayManager.class) {
-                if (mInstance == null) {
+    public static ImageDisplayManager getInstance(){
+        if(mInstance == null){
+            synchronized(ImageDisplayManager.class){
+                if(mInstance == null){
                     mInstance = new ImageDisplayManager();
                 }
             }
@@ -45,132 +45,129 @@ public class ImageDisplayManager extends ImageDisplayBase {
     }
 
     @Override
-    public void display(Object with, ImageView imageView, Object resourceType, FileType fileType, int placeHolder, int errorResource, int roundRadius) {
+    public void display(Object with, ImageView imageView, Object resourceType, FileType fileType, int placeHolder, int errorResource, int roundRadius){
         RequestManager requestManager = null;
-        if (defContext == null) {
-            try {
+        if(defContext == null){
+            try{
                 throw new Exception("defContext is null");
-            } catch (Exception e) {
+            }catch(Exception e){
                 e.printStackTrace();
             }
         }
-        if (with == null) {
+        if(with == null){
             with = defContext;
         }
-        if (with instanceof Context) {
+        if(with instanceof Context){
             requestManager = Glide.with((Context) with);
-        } else if (with instanceof Activity) {
+        }else if(with instanceof Activity){
             requestManager = Glide.with((Activity) with);
-        } else if (with instanceof Fragment) {
+        }else if(with instanceof Fragment){
             requestManager = Glide.with((Fragment) with);
-        } else if (with instanceof FragmentActivity) {
+        }else if(with instanceof FragmentActivity){
             requestManager = Glide.with((FragmentActivity) with);
-        } else {//def
+        }else{//def
             requestManager = Glide.with((Context) with);
         }
         DrawableTypeRequest request = null;
-        if (resourceType instanceof String) {
-
-            String resourceStr = (String) resourceType;
-            if (resourceStr.startsWith("http")){
-                if (resourceStr.contains("?x-oss-process=image")) {
-                    resourceStr += "/format,jpg/quality,q_70";
-                } else if (resourceStr.contains("?") && (resourceStr.lastIndexOf("?") != resourceStr.length() - 1)) {
-                    resourceStr += "&x-oss-process=image/format,jpg/quality,q_70";
-                } else {
-                    resourceStr += "?x-oss-process=image/format,jpg/quality,q_70";
-                }
-            }
-            request = requestManager.load(resourceStr);
-        } else if (resourceType instanceof Integer) {
+        if(resourceType instanceof String){
+            //优化策略
+            //            String resourceStr = (String) resourceType;
+            //            if(resourceStr.startsWith("http")){
+            //                if(resourceStr.contains("?x-oss-process=image")){
+            //                    resourceStr += "/format,jpg/quality,q_70";
+            //                }else if(resourceStr.contains("?") && (resourceStr.lastIndexOf("?") != resourceStr.length() - 1)){
+            //                    resourceStr += "&x-oss-process=image/format,jpg/quality,q_70";
+            //                }else{
+            //                    resourceStr += "?x-oss-process=image/format,jpg/quality,q_70";
+            //                }
+            //            }
+            request = requestManager.load(resourceType);
+        }else if(resourceType instanceof Integer){
             request = requestManager.load((int) resourceType);
-        } else if (resourceType instanceof File) {
+        }else if(resourceType instanceof File){
             request = requestManager.load((File) resourceType);
-        } else {//def
+        }else{//def
             request = requestManager.load(resourceType.toString());
         }
         DrawableRequestBuilder requestBuilder = null;
         requestBuilder = request.placeholder(placeHolder == -1 ? -1 : placeHolder)
                 .error(errorResource == -1 ? -1 : errorResource).crossFade().diskCacheStrategy(DiskCacheStrategy.ALL);
-        if (fileType == FileType.CIRCLE) {
+        if(fileType == FileType.CIRCLE){
             //加载圆形图片转换器
             requestBuilder.transform(new GlideCircleTransform(defContext));
-        } else if (fileType == FileType.NORMAL) {
-
-        } else if (fileType == FileType.ROUND) {
-            if (roundRadius == -1) {
+        }else if(fileType == FileType.NORMAL){
+        }else if(fileType == FileType.ROUND){
+            if(roundRadius == -1){
                 roundRadius = 7;
             }
             requestBuilder.transform(new GlideRoundTransform(defContext, roundRadius));
-        } else if (fileType == FileType.KEEP_SCALE) {
+        }else if(fileType == FileType.KEEP_SCALE){
             requestBuilder.transform(new GlideKeepScaleTransform(defContext));
         }
-
-        requestBuilder.listener(new RequestListener() {
+        requestBuilder.listener(new RequestListener(){
             @Override
-            public boolean onException(Exception e, Object model, Target target, boolean isFirstResource) {
-//                LogUtil.d("onException() called with:  == " + e.getMessage() + ", model == " + model.toString() + ", Target == " + target.toString() + ",isFirstResource == " + isFirstResource);
-
+            public boolean onException(Exception e, Object model, Target target, boolean isFirstResource){
+                LogUtils.d("onException() called with:  == " + e.getMessage() + ", model == " + model.toString() + ", Target == " + target.toString() + ",isFirstResource == " +
+                        isFirstResource);
                 return false;
             }
 
             @Override
-            public boolean onResourceReady(Object resource, Object model, Target target, boolean isFromMemoryCache, boolean isFirstResource) {
-//                LogUtil.d("onResourceReady() called with:  == " + resource.toString() + ", model == " + model.toString() + ", isFromMemoryCache == " + isFromMemoryCache + ",isFirstResource == " + isFirstResource);
-
+            public boolean onResourceReady(Object resource, Object model, Target target, boolean isFromMemoryCache, boolean isFirstResource){
+                LogUtils.d("onResourceReady() called with:  == " + resource.toString() + ", model == " + model.toString() + ", isFromMemoryCache == " + isFromMemoryCache + "," +
+                        "isFirstResource == " + isFirstResource);
                 return false;
             }
         }).into(imageView);
     }
 
     @Override
-    public void pauseLoadImage(Object with) {
-        if (with == null) {
+    public void pauseLoadImage(Object with){
+        if(with == null){
             with = defContext;
         }
-        if (with instanceof Context) {
+        if(with instanceof Context){
             Glide.with((Context) with).pauseRequests();
-        } else if (with instanceof Activity) {
+        }else if(with instanceof Activity){
             Glide.with((Activity) with).pauseRequests();
-        } else if (with instanceof Fragment) {
+        }else if(with instanceof Fragment){
             Glide.with((Fragment) with).pauseRequests();
-        } else if (with instanceof FragmentActivity) {
+        }else if(with instanceof FragmentActivity){
             Glide.with((FragmentActivity) with).pauseRequests();
-        } else {//def
+        }else{//def
             Glide.with((Context) with).pauseRequests();
         }
     }
 
     @Override
-    public void resumeLoadImage(Object with) {
-        if (with == null) {
+    public void resumeLoadImage(Object with){
+        if(with == null){
             with = defContext;
         }
-        if (with instanceof Context) {
+        if(with instanceof Context){
             Glide.with((Context) with).resumeRequests();
-        } else if (with instanceof Activity) {
+        }else if(with instanceof Activity){
             Glide.with((Activity) with).resumeRequests();
-        } else if (with instanceof Fragment) {
+        }else if(with instanceof Fragment){
             Glide.with((Fragment) with).resumeRequests();
-        } else if (with instanceof FragmentActivity) {
+        }else if(with instanceof FragmentActivity){
             Glide.with((FragmentActivity) with).resumeRequests();
-        } else {//def
+        }else{//def
             Glide.with((Context) with).resumeRequests();
         }
     }
 
-
-    public void loadImageCheck(Activity activity, String path, ImageView imageView) {
-        Glide.with(activity).load(path).skipMemoryCache(true).crossFade().listener(new RequestListener<String, GlideDrawable>() {
+    public void loadImageCheck(Activity activity, String path, ImageView imageView){
+        Glide.with(activity).load(path).skipMemoryCache(true).crossFade().listener(new RequestListener<String, GlideDrawable>(){
             @Override
-            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource){
                 LogUtils.d(TAG, "onException && isFirstResource == " + isFirstResource);
                 e.printStackTrace();
                 return false;
             }
 
             @Override
-            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource){
                 LogUtils.d(TAG, "onResourceReady");
                 return false;
             }

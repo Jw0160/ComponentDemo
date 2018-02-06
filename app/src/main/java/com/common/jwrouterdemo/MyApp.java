@@ -2,6 +2,8 @@ package com.common.jwrouterdemo;
 
 import android.app.Application;
 
+import com.bumptech.glide.Glide;
+import com.common.common_base.image.ImageDisplayManager;
 import com.common.common_base.utils.KLog;
 import com.common.common_base.utils.util.Utils;
 import com.common.router.Router;
@@ -28,6 +30,7 @@ public class MyApp extends Application{
     public void onCreate(){
         super.onCreate();
         instance = this;
+        ImageDisplayManager.getInstance().init(this);
         Router.initialize(this, true);
         KLog.init(true);
         Utils.init(this);

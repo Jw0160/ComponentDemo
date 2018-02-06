@@ -16,5 +16,5 @@
         android:scaleType="centerCrop"
         android:src="@drawable/material_img"
         android:id="@+id/img_1"
-        android:transitionName="image" />
+        android:transitionName="image1" />
 </LinearLayout>

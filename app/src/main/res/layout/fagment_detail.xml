@@ -11,7 +11,7 @@
         android:layout_height="300dp"
         android:scaleType="centerCrop"
         android:transitionName="image"
-        tools:src="@drawable/timg" />
+        android:src="@drawable/material_img" />
     
     <TextView
         android:id="@+id/tv_contains"

@@ -72,7 +72,7 @@ public class TestMvoFragment extends LazyLoadFragment implements ITest.View{
                 //                lTestMvpFragment2.setSharedElementEnterTransition(new DetailTransition());
                 //                lTestMvpFragment2.setSharedElementReturnTransition(new DetailTransition());
                 //                //
-                                ViewCompat.setTransitionName(mImg1, "image");
+//                                ViewCompat.setTransitionName(mImg1, "image");
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                     lTestMvpFragment2.setSharedElementEnterTransition(new DetailTransition());
                     setExitTransition(new Fade());

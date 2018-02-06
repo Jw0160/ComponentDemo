@@ -6,20 +6,18 @@
     android:orientation="horizontal">
     
     <ImageView
+        android:id="@+id/img_1"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
-        android:id="@+id/img_1"
-        android:transitionName="image"
-        tools:src="@drawable/timg" />
+        android:src="@drawable/material_img" />
     
     <TextView
         android:id="@+id/tv_contains"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="100dp"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
-        
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
         tools:text="demo" />
 </LinearLayout>

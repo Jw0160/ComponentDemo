@@ -23,8 +23,8 @@ public class TransitionAdapter extends BaseQuickAdapter<String, BaseViewHolder>{
 
     @Override
     protected void convert(BaseViewHolder helper, String item){
-        helper.setText(R.id.tv_contains, item)
-                .setImageResource(R.id.img_1, R.drawable.timg);
+        helper.setText(R.id.tv_contains, item);
+//                .setImageResource(R.id.img_1, R.drawable.timg);
     }
 
     @Override

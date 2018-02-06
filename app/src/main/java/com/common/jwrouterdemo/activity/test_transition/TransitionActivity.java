@@ -38,14 +38,5 @@ public class TransitionActivity extends BaseActivity{
     public void initData(){
     }
 
-    @Override
-    public void onBackPressed(){
-        mNowMills = TimeUtils.getNowMills();
-        if(mNowMills - mLastMills < 1 * 1000 * 1000){
-            super.onBackPressed();
-        }else{
-            ToastUtils.showShort("再按一次退出~");
-        }
-        mLastMills = mNowMills;
-    }
+
 }
