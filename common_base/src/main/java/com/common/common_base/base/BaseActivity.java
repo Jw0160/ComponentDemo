@@ -7,10 +7,12 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.common.common_base.R;
 import com.common.common_base.listener.LifeCycleListener;
@@ -19,6 +21,7 @@ import com.common.common_base.utils.util.LogUtils;
 import com.common.common_base.utils.system.AppManagerUtil;
 import com.common.common_base.utils.system.KeyBoardUtil;
 import com.common.common_base.widget.titlebar.CommonTitleBar;
+import com.common.common_base.widget.toolbar.ToolbarModel;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
 import com.r0adkll.slidr.model.SlidrInterface;
@@ -50,6 +53,8 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseCo
      * 回调函数
      */
     public LifeCycleListener mListener;
+    private Toolbar mCommonToolbar;
+    private TextView mTvCenterTitle;
 
     public void setOnLifeCycleListener(LifeCycleListener listener){
         mListener = listener;
@@ -72,15 +77,48 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseCo
         }catch(Exception e){
             e.printStackTrace();
         }
-//        initSlidable();
-//        initSystemBar(this);
+        getCommonToolBar();
+        //        initSlidable();
+        //        initSystemBar(this);
         initBundleData();
         initData();
     }
 
-    protected void initToolBar(Toolbar toolbar, String title){
-        toolbar.setTitle(title);
-        setSupportActionBar(toolbar);
+    private void getCommonToolBar(){
+        try{
+            mCommonToolbar = ((Toolbar) this.findViewById(R.id.toolbar));
+            mTvCenterTitle = ((TextView) this.findViewById(R.id.tv_center_title));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    protected void initToolBar(ToolbarModel toolbarModel){
+        if(toolbarModel.getTitle() != null && toolbarModel.getTitle().getVisibleId() != View.GONE){
+            mCommonToolbar.setTitle(toolbarModel.getTitle().getResId());
+            mCommonToolbar.setForegroundGravity(Gravity.CENTER);
+        }else{
+            mCommonToolbar.setTitle("");
+        }
+        if(toolbarModel.getLogo() != null && toolbarModel.getLogo().getVisibleId() != View.GONE){
+            mCommonToolbar.setLogo(toolbarModel.getLogo().getResId());
+        }
+        if(toolbarModel.getSubtitle() != null && toolbarModel.getSubtitle().getVisibleId() != View.GONE){
+            mCommonToolbar.setSubtitle(toolbarModel.getSubtitle().getResId());
+        }
+        if(toolbarModel.getTvTitleName() != null && toolbarModel.getTvTitleName().getVisibleId() != View.GONE){
+            if(mTvCenterTitle != null){
+                mTvCenterTitle.setVisibility(View.VISIBLE);
+                mTvCenterTitle.setText(toolbarModel.getTvTitleName().getResId());
+            }else{
+                mTvCenterTitle.setVisibility(View.GONE);
+            }
+        }
+        setSupportActionBar(mCommonToolbar);
+        if(toolbarModel.getNavigationIcon() != null && toolbarModel.getNavigationIcon().getVisibleId() != View.GONE){
+            mCommonToolbar.setNavigationIcon(toolbarModel.getNavigationIcon().getResId());
+        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     /**
