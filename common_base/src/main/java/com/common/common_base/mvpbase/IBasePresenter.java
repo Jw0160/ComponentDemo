@@ -8,4 +8,5 @@ package com.common.common_base.mvpbase;
  */
 
 public interface IBasePresenter{
+
 }

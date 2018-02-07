@@ -3,6 +3,7 @@ package com.common.common_base.base;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,10 +17,13 @@ import android.widget.TextView;
 
 import com.common.common_base.R;
 import com.common.common_base.listener.LifeCycleListener;
+import com.common.common_base.mvpbase.IBaseView;
 import com.common.common_base.utils.system.SystemBarTintManager;
+import com.common.common_base.utils.util.FragmentUtils;
 import com.common.common_base.utils.util.LogUtils;
 import com.common.common_base.utils.system.AppManagerUtil;
 import com.common.common_base.utils.system.KeyBoardUtil;
+import com.common.common_base.widget.loadlayout.LoadingLayout;
 import com.common.common_base.widget.titlebar.CommonTitleBar;
 import com.common.common_base.widget.toolbar.ToolbarModel;
 import com.r0adkll.slidr.Slidr;
@@ -39,7 +43,7 @@ import butterknife.Unbinder;
  * @desc :
  */
 
-public abstract class BaseActivity extends RxAppCompatActivity implements BaseConfigInterface{
+public abstract class BaseActivity extends RxAppCompatActivity implements BaseConfigInterface,IBaseView{
     protected Context mContext;
     protected Unbinder unBinder;
     /**
@@ -55,6 +59,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseCo
     public LifeCycleListener mListener;
     private Toolbar mCommonToolbar;
     private TextView mTvCenterTitle;
+    private LoadingLayout mLoadingLayout;
 
     public void setOnLifeCycleListener(LifeCycleListener listener){
         mListener = listener;
@@ -78,10 +83,19 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseCo
             e.printStackTrace();
         }
         getCommonToolBar();
+        getLoadLayout();
         //        initSlidable();
         //        initSystemBar(this);
         initBundleData();
         initData();
+    }
+
+    private void getLoadLayout(){
+        try{
+            mLoadingLayout = ((LoadingLayout) this.findViewById(R.id.loading_layout));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void getCommonToolBar(){
@@ -120,40 +134,37 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseCo
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
-    /**
-     * @param activity 当前活动Activtiy实例
-     *                 void
-     */
-    protected void initSystemBar(Activity activity){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-            setTranslucentStatus(activity, true);
-        }
-        SystemBarTintManager tintManager = new SystemBarTintManager(activity);
-        tintManager.setStatusBarTintEnabled(true);
-        // 使用颜色资源
-        tintManager.setNavigationBarTintEnabled(true);
-        tintManager.setStatusBarTintColor(Color.parseColor("#00000000"));
-    }
-
-    /**
-     * 设置系统顶部栏和程序主题颜色统一
-     *
-     * @param activity 当前活动Activity实例
-     * @param on       void
-     */
-    @TargetApi(19)
-    private void setTranslucentStatus(Activity activity, boolean on){
-        Window win = activity.getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if(on){
-            winParams.flags |= bits;
-        }else{
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
-    }
+    //    /**
+    //     */
+    //    protected void initSystemBar(Activity activity){
+    //        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+    //            setTranslucentStatus(activity, true);
+    //        }
+    //        SystemBarTintManager tintManager = new SystemBarTintManager(activity);
+    //        tintManager.setStatusBarTintEnabled(true);
+    //        // 使用颜色资源
+    //        tintManager.setNavigationBarTintEnabled(true);
+    //        tintManager.setStatusBarTintColor(Color.parseColor("#00000000"));
+    //    }
+    //
+    //    /**
+    //     * 设置系统顶部栏和程序主题颜色统一
+    //     *
+    //     * @param activity 当前活动Activity实例
+    //     * @param on       void
+    //     */
+    //    @TargetApi(19)
+    //    private void setTranslucentStatus(Activity activity, boolean on){
+    //        Window win = activity.getWindow();
+    //        WindowManager.LayoutParams winParams = win.getAttributes();
+    //        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+    //        if(on){
+    //            winParams.flags |= bits;
+    //        }else{
+    //            winParams.flags &= ~bits;
+    //        }
+    //        win.setAttributes(winParams);
+    //    }
 
     private void initSlidable(){
         SlidrConfig config = new SlidrConfig.Builder()
@@ -226,6 +237,15 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseCo
         AppManagerUtil.getInstance().finishActivity(this);
     }
 
+    @Override
+    public void onShowLoading(){
+    }
+
+    @Override
+    public void onHideLoading(){
+    }
+
+
     protected void eventRegister(){
         // 在要接收消息的页面的OnCreate()中注册EventBus
         try{
@@ -257,5 +277,60 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseCo
             }
         }
         return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public void onBackPressed(){
+        int count = getSupportFragmentManager().getBackStackEntryCount();// Fragment 逐个出栈
+        if(count == 0){
+            super.onBackPressed();
+        }else{
+            getSupportFragmentManager().popBackStack();
+        }
+    }
+
+    /**
+     * 进入下一个activity并且带一个动画效果,有附带的数据
+     *
+     * @param clazz  clazz 目标Activity的Class实例
+     * @param bundle Bundle数据实例
+     */
+    protected final void enterNextActivity(Class<?> clazz, Bundle bundle){
+        Intent intent = new Intent(this, clazz);
+        if(bundle != null){
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
+        enterBeginAnimation();
+    }
+
+    protected final void enterNextActivity(Class<?> clazz){
+        enterNextActivity(clazz, null);
+    }
+
+    /**
+     * 进入下一个activity带有requsetCode，并且带一个动画效果
+     *
+     * @param clazz       clazz 目标Activity的Class实例
+     * @param requestCode
+     */
+    protected final void enterNextActivityForResult(Class<?> clazz, Bundle bundle, int requestCode){
+        Intent intent = new Intent(this, clazz);
+        if(bundle != null){
+            intent.putExtras(bundle);
+        }
+        startActivityForResult(intent, requestCode);
+        enterBeginAnimation();
+    }
+
+    protected final void enterNextActivityForResult(Class<?> clazz, int requestCode){
+        enterNextActivityForResult(clazz, null, requestCode);
+    }
+
+    /**
+     * 跳转Acticity时自定义的动画
+     */
+    protected final void enterBeginAnimation(){
+        overridePendingTransition(R.anim.tran_pre_in, R.anim.tran_pre_out);
     }
 }

@@ -1,17 +1,17 @@
 package com.common.jwrouterdemo.activity.test_transition;
 
-import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
 
 import com.common.common_base.base.BaseActivity;
 import com.common.common_base.utils.util.FragmentUtils;
-import com.common.common_base.utils.util.TimeUtils;
-import com.common.common_base.utils.util.ToastUtils;
 import com.common.common_base.widget.toolbar.ToolbarBean;
 import com.common.common_base.widget.toolbar.ToolbarModel;
 import com.common.jwrouterdemo.R;
+import com.common.jwrouterdemo.activity.TestCommonToolbarActivity;
 import com.common.jwrouterdemo.activity.test_transition.fragment.MainFragment;
 
-import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * @author : JoyWong0160
@@ -31,11 +31,17 @@ public class TransitionActivity extends BaseActivity{
 
     @Override
     public void initBundleData(){
-        initToolBar(new ToolbarModel.Builder().setTitle(new ToolbarBean(R.string.camera)).create());
+        initToolBar(new ToolbarModel.Builder().setTitle(new ToolbarBean(R.string.sms)).create());
         FragmentUtils.add(getSupportFragmentManager(), MainFragment.newInstance(null), R.id.container);
     }
 
     @Override
     public void initData(){
+    }
+
+
+    @OnClick(R.id.btn_in)
+    public void onViewClicked(){
+        enterNextActivity(TestCommonToolbarActivity.class);
     }
 }

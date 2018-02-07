@@ -6,5 +6,11 @@
     
     <include layout="@layout/toorbar_layout" />
     
+    <Button
+        android:id="@+id/btn_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="in" />
+    
     <include layout="@layout/layout_contain" />
 </LinearLayout>

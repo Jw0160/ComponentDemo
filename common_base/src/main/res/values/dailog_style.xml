@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
     <style name="dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <!-- 边框 -->
@@ -7,18 +8,18 @@
         <!-- 是否浮现在activity之上 -->
         <item name="android:windowIsTranslucent">true</item>
         <!-- 无标题 -->
-        <item name="android:windowBackground">@color/no_color</item>
+        <item name="android:windowBackground">@color/transparent</item>
         <!-- 背景透明 -->
         <item name="android:backgroundDimEnabled">true</item>
         <!-- 模糊 -->
         <item name="android:windowNoTitle">true</item>
     </style>
-
+    
     <style name="main_menu_animstyle">
         <item name="android:windowEnterAnimation">@anim/photo_dialog_in_anim</item>
         <item name="android:windowExitAnimation">@anim/photo_dialog_out_anim</item>
     </style>
-
+    
     <style name="dialog_scale_animstyle">
         <item name="android:windowEnterAnimation">@anim/scale_dialog_in_anim</item>
         <item name="android:windowExitAnimation">@anim/scale_dialog_out_anim</item>

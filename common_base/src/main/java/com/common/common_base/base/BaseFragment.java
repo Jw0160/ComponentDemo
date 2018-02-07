@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.common.common_base.R;
 import com.common.common_base.listener.LifeCycleListener;
+import com.common.common_base.mvpbase.IBaseView;
 import com.common.common_base.utils.util.LogUtils;
 import com.common.common_base.utils.system.KeyBoardUtil;
 import com.common.common_base.widget.titlebar.CommonTitleBar;
@@ -30,7 +31,7 @@ import butterknife.Unbinder;
  * @desc :
  */
 
-public abstract class BaseFragment extends RxFragment implements BaseConfigInterface{
+public abstract class BaseFragment extends RxFragment implements BaseConfigInterface,IBaseView{
     /**
      * Fragment运行时的Context
      */

@@ -102,13 +102,6 @@ public class TestMvoFragment extends LazyLoadFragment implements ITest.View{
         });
     }
 
-    @Override
-    public void onShowLoading(){
-    }
-
-    @Override
-    public void onHideLoading(){
-    }
 
     @Override
     public void onLogin(){
@@ -120,5 +113,13 @@ public class TestMvoFragment extends LazyLoadFragment implements ITest.View{
         //        mString = getArguments().getString("10086");
         //        mTvTestFragment.setText(mTvTestFragment.getText() + getArguments().getString("10086"));
         LogUtils.e("fetchData" + mString);
+    }
+
+    @Override
+    public void onShowLoading(){
+    }
+
+    @Override
+    public void onHideLoading(){
     }
 }

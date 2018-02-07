@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide;
 import com.common.common_base.image.ImageDisplayManager;
 import com.common.common_base.utils.KLog;
 import com.common.common_base.utils.util.Utils;
+import com.common.common_base.widget.loadlayout.LoadingLayout;
 import com.common.router.Router;
 import com.costom.orm.DaoMaster;
 import com.costom.orm.DaoSession;
@@ -35,6 +36,24 @@ public class MyApp extends Application{
         KLog.init(true);
         Utils.init(this);
         initGreedDaoDB();
+        initLoadLayout();
+    }
+
+    private void initLoadLayout(){
+        LoadingLayout.getConfig()
+                .setErrorText("出错啦~请稍后重试！")
+                .setEmptyText("抱歉，暂无数据")
+                .setNoNetworkText("无网络连接，请检查您的网络···")
+                .setErrorImage(R.mipmap.define_error)
+                .setEmptyImage(R.mipmap.define_empty)
+                .setNoNetworkImage(R.mipmap.define_nonetwork)
+                .setAllTipTextColor(R.color.Grey50)
+                .setAllTipTextSize(14)
+                .setReloadButtonText("点我重试哦")
+                .setReloadButtonTextSize(14)
+                .setReloadButtonTextColor(R.color.Grey50)
+                .setReloadButtonWidthAndHeight(150,40)
+                .setAllPageBackgroundColor(R.color.Grey10);
     }
 
     private void initGreedDaoDB(){

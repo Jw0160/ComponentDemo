@@ -1,5 +1,6 @@
 package com.common.common_base;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import com.common.common_base.utils.ToastUtil;
  */
 
 public class APP{
+    @SuppressLint("StaticFieldLeak")
     public static final Application INSTANCE;
 
     static{
