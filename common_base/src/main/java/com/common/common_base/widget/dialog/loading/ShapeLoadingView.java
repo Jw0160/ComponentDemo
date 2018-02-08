@@ -53,7 +53,7 @@ public class ShapeLoadingView extends View {
         mPaint.setColor(ContextCompat.getColor(this.getContext(), R.color.triangle));
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.no_color));
+        setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.transparent));
 
 
     }

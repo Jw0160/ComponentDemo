@@ -23,9 +23,9 @@ public class RetrofitUtils{
      * 接口地址
      */
     private static final String BASE_API = "http://capi.o2o-test.mao-wo.com/o2o-app-api/";
-    private static final int CONNECT_TIME_OUT = 30;//连接超时时长x秒
-    private static final int READ_TIME_OUT = 30;//读数据超时时长x秒
-    private static final int WRITE_TIME_OUT = 30;//写数据接超时时长x秒
+    private static final int CONNECT_TIME_OUT = 10;//连接超时时长x秒
+    private static final int READ_TIME_OUT = 10;//读数据超时时长x秒
+    private static final int WRITE_TIME_OUT = 10;//写数据接超时时长x秒
     private static RetrofitUtils mInstance = null;
 
     private RetrofitUtils(){

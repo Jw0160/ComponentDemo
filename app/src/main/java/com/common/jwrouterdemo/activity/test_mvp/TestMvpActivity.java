@@ -84,5 +84,7 @@ public class TestMvpActivity extends BaseFragmentActivity{
     }
 
     public void onMvpClick(View view){
+
+
     }
 }

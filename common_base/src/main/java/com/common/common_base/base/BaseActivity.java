@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.common.common_base.R;
 import com.common.common_base.listener.LifeCycleListener;
+import com.common.common_base.mvpbase.IBasePresenter;
 import com.common.common_base.mvpbase.IBaseView;
 import com.common.common_base.utils.system.SystemBarTintManager;
 import com.common.common_base.utils.util.FragmentUtils;
@@ -43,7 +44,7 @@ import butterknife.Unbinder;
  * @desc :
  */
 
-public abstract class BaseActivity extends RxAppCompatActivity implements BaseConfigInterface,IBaseView{
+public abstract class BaseActivity extends RxAppCompatActivity implements BaseConfigInterface, IBaseView{
     protected Context mContext;
     protected Unbinder unBinder;
     /**
@@ -60,6 +61,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseCo
     private Toolbar mCommonToolbar;
     private TextView mTvCenterTitle;
     private LoadingLayout mLoadingLayout;
+    private IBasePresenter mBasePresenter;
 
     public void setOnLifeCycleListener(LifeCycleListener listener){
         mListener = listener;
@@ -93,6 +95,14 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseCo
     private void getLoadLayout(){
         try{
             mLoadingLayout = ((LoadingLayout) this.findViewById(R.id.loading_layout));
+            mLoadingLayout.setOnReloadListener(new LoadingLayout.OnReloadListener(){
+                @Override
+                public void onReload(View v){
+                    if(mBasePresenter != null){
+                        mBasePresenter.doLoadData();
+                    }
+                }
+            });
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -238,13 +248,39 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseCo
     }
 
     @Override
-    public void onShowLoading(){
+    public void onError(){
+        if(mLoadingLayout != null){
+            mLoadingLayout.setStatus(LoadingLayout.Error);
+        }
     }
 
     @Override
-    public void onHideLoading(){
+    public void onEmpty(){
+        if(mLoadingLayout != null){
+            mLoadingLayout.setStatus(LoadingLayout.Empty);
+        }
     }
 
+    @Override
+    public void onSuccess(){
+        if(mLoadingLayout != null){
+            mLoadingLayout.setStatus(LoadingLayout.Success);
+        }
+    }
+
+    @Override
+    public void onLoading(){
+        if(mLoadingLayout != null){
+            mLoadingLayout.setStatus(LoadingLayout.Loading);
+        }
+    }
+
+    @Override
+    public void onNotNetWork(){
+        if(mLoadingLayout != null){
+            mLoadingLayout.setStatus(LoadingLayout.No_Network);
+        }
+    }
 
     protected void eventRegister(){
         // 在要接收消息的页面的OnCreate()中注册EventBus

@@ -17,11 +17,11 @@ import java.lang.ref.WeakReference;
  * @desc :
  */
 
-public class BasePresenter<T extends IBaseView> implements IBasePresenter, LifeCycleListener{
+public class PresenterManage<T extends IBaseView> implements LifeCycleListener{
     private Reference<T> mViewRef;
     protected T mView;
 
-    public BasePresenter(T target){
+    public PresenterManage(T target){
         attachTarget(target);
         setListener(target);
     }

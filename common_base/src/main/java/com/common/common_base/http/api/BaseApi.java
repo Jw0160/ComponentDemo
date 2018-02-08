@@ -21,5 +21,5 @@ public interface BaseApi{
     @POST("{path}")
     //    @Headers({"Content-Type: application/json", "Accept: application/json", "mw-client:android"})
     @Headers({"mw-client:android"})
-    Observable<BaseResult> doPost(@Path("path") String path, @Body LoginBean body);
+    Observable<BaseResult> doPost(@Path("path") String path, @Body RequestBody body);
 }

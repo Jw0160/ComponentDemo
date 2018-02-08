@@ -3,11 +3,8 @@ package com.common.jwrouterdemo.activity.test_mvp;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewCompat;
 import android.transition.Fade;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,8 +14,6 @@ import com.common.common_base.utils.util.LogUtils;
 import com.common.jwrouterdemo.R;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * @author : JoyWong0160
@@ -33,7 +28,6 @@ public class TestMvoFragment extends LazyLoadFragment implements ITest.View{
     @BindView(R.id.img_1)
     ImageView mImg1;
 
-    private TestMvpPresenter mTestMvpPresenter = new TestMvpPresenter(this);
     private String mString;
     private FragmentManager mSupportFragmentManager;
     ///////////////////////////////////////////////////////////////////////////
@@ -57,6 +51,7 @@ public class TestMvoFragment extends LazyLoadFragment implements ITest.View{
 
     @Override
     public void initBundleData(){
+        mBasePresenter = new TestMvpPresenter(this);
         //        mTvTestFragment.setText(mTvTestFragment.getText() + getArguments().getString("10086"));
         //        LogUtils.e("initBundleData" + getArguments().getString("10086"));
         mSupportFragmentManager = mContext.getSupportFragmentManager();
@@ -72,7 +67,7 @@ public class TestMvoFragment extends LazyLoadFragment implements ITest.View{
                 //                lTestMvpFragment2.setSharedElementEnterTransition(new DetailTransition());
                 //                lTestMvpFragment2.setSharedElementReturnTransition(new DetailTransition());
                 //                //
-//                                ViewCompat.setTransitionName(mImg1, "image");
+                //                                ViewCompat.setTransitionName(mImg1, "image");
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                     lTestMvpFragment2.setSharedElementEnterTransition(new DetailTransition());
                     setExitTransition(new Fade());
@@ -97,11 +92,10 @@ public class TestMvoFragment extends LazyLoadFragment implements ITest.View{
         mTvTestFragment.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                mTestMvpPresenter.doLogin("hello,wold", this.getClass().getSimpleName());
+                ((ITest.Persenter) mBasePresenter).doLogin("hello,wold", this.getClass().getSimpleName());
             }
         });
     }
-
 
     @Override
     public void onLogin(){
@@ -113,13 +107,5 @@ public class TestMvoFragment extends LazyLoadFragment implements ITest.View{
         //        mString = getArguments().getString("10086");
         //        mTvTestFragment.setText(mTvTestFragment.getText() + getArguments().getString("10086"));
         LogUtils.e("fetchData" + mString);
-    }
-
-    @Override
-    public void onShowLoading(){
-    }
-
-    @Override
-    public void onHideLoading(){
     }
 }

@@ -1,5 +1,6 @@
 package com.common.common_base.http.exception;
 
+import com.common.common_base.utils.util.LogUtils;
 import com.common.common_base.utils.util.ToastUtils;
 import com.google.gson.JsonParseException;
 import com.google.gson.stream.MalformedJsonException;
@@ -8,6 +9,7 @@ import org.json.JSONException;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.text.ParseException;
 
 import retrofit2.HttpException;
@@ -22,6 +24,7 @@ public class ExceptionEngine{
     public static final int ANALYTIC_CLIENT_DATA_ERROR = 1002;//解析(客户端)数据错误
     public static final int CONNECT_ERROR = 1003;//网络连接错误
     public static final int TIME_OUT_ERROR = 1004;//网络连接超时
+    public static final int NOT_NET_WORK = 1005;//网络连接超时
 
     public static ApiException handleException(Throwable e){
         ApiException ex;
@@ -49,9 +52,13 @@ public class ExceptionEngine{
             ex = new ApiException(e, TIME_OUT_ERROR);
             ex.setMsg("网络超时");
             return ex;
-        }else if(e instanceof ApiException){//请求接口同意错误处理
-            ToastUtils.showLong(((ApiException) e).getMsg());
+        }else if(e instanceof ApiException){//请求接口统一错误处理
+            LogUtils.e("message :" + ((ApiException) e).getMsg() + ";  code :" + ((ApiException) e).getCode());
             return (ApiException) e;
+        }else if(e instanceof UnknownHostException){//位置服务端口错误(没有网?)
+            ex = new ApiException(e, NOT_NET_WORK);
+            ex.setMsg("网络错误");
+            return ex;
         }else{  //未知错误
             ex = new ApiException(e, UN_KNOWN_ERROR);
             ex.setMsg("未知错误");

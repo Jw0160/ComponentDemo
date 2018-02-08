@@ -64,7 +64,7 @@ public class LoggerInterceptor implements Interceptor{
                     Log.e(tag, "responseBody's contentType : " + mediaType.toString());
                     if(isText(mediaType)){
                         String resp = body.string();
-                        Log.e(tag, "responseBody's content : " + resp);
+//                        Log.e(tag, "responseBody's content : " + resp);
                         body = ResponseBody.create(mediaType, resp);
                         return response.newBuilder().body(body).build();
                     }else{

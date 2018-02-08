@@ -11,9 +11,11 @@ import android.view.ViewGroup;
 
 import com.common.common_base.R;
 import com.common.common_base.listener.LifeCycleListener;
+import com.common.common_base.mvpbase.IBasePresenter;
 import com.common.common_base.mvpbase.IBaseView;
 import com.common.common_base.utils.util.LogUtils;
 import com.common.common_base.utils.system.KeyBoardUtil;
+import com.common.common_base.widget.loadlayout.LoadingLayout;
 import com.common.common_base.widget.titlebar.CommonTitleBar;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
@@ -31,7 +33,7 @@ import butterknife.Unbinder;
  * @desc :
  */
 
-public abstract class BaseFragment extends RxFragment implements BaseConfigInterface,IBaseView{
+public abstract class BaseFragment extends RxFragment implements BaseConfigInterface, IBaseView{
     /**
      * Fragment运行时的Context
      */
@@ -51,6 +53,8 @@ public abstract class BaseFragment extends RxFragment implements BaseConfigInter
      * 回调函数
      */
     public LifeCycleListener mListener;
+    private LoadingLayout mLoadingLayout;
+    protected IBasePresenter mBasePresenter;
 
     public void setOnLifeCycleListener(LifeCycleListener listener){
         mListener = listener;
@@ -94,8 +98,24 @@ public abstract class BaseFragment extends RxFragment implements BaseConfigInter
                 return false;
             }
         });
-
+        getLoadLayout();
         return rootView;
+    }
+
+    private void getLoadLayout(){
+        try{
+            mLoadingLayout = ((LoadingLayout) rootView.findViewById(R.id.loading_layout));
+            mLoadingLayout.setOnReloadListener(new LoadingLayout.OnReloadListener(){
+                @Override
+                public void onReload(View v){
+                    if(mBasePresenter != null){
+                        mBasePresenter.doLoadData();
+                    }
+                }
+            });
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -154,6 +174,41 @@ public abstract class BaseFragment extends RxFragment implements BaseConfigInter
             }
         }catch(Exception e){
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onError(){
+        if(mLoadingLayout != null){
+            mLoadingLayout.setStatus(LoadingLayout.Error);
+        }
+    }
+
+    @Override
+    public void onEmpty(){
+        if(mLoadingLayout != null){
+            mLoadingLayout.setStatus(LoadingLayout.Empty);
+        }
+    }
+
+    @Override
+    public void onSuccess(){
+        if(mLoadingLayout != null){
+            mLoadingLayout.setStatus(LoadingLayout.Success);
+        }
+    }
+
+    @Override
+    public void onLoading(){
+        if(mLoadingLayout != null){
+            mLoadingLayout.setStatus(LoadingLayout.Loading);
+        }
+    }
+
+    @Override
+    public void onNotNetWork(){
+        if(mLoadingLayout != null){
+            mLoadingLayout.setStatus(LoadingLayout.No_Network);
         }
     }
 }

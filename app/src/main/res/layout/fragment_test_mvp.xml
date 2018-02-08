@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.common.common_base.widget.loadlayout.LoadingLayout android:id="@+id/loading_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    app:isFirstVisible="true">
     
-    <TextView
-        android:id="@+id/tv_test_fragment"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="hellow"
-        android:textSize="30dp" />
-    
-    <ImageView
-        android:id="@+id/img_1"
-        android:layout_width="100dp"
-        android:transitionName="image"
-        android:layout_height="100dp"
-        android:layout_gravity="right"
-        android:scaleType="fitXY"
-        android:src="@drawable/material_img"
-         />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        
+        <TextView
+            android:id="@+id/tv_test_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="hellow"
+            android:textSize="30dp" />
+        
+        <ImageView
+            android:id="@+id/img_1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="right"
+            android:scaleType="fitXY"
+            android:src="@drawable/material_img"
+            android:transitionName="image" />
+    </LinearLayout>
+</com.common.common_base.widget.loadlayout.LoadingLayout>

@@ -1,6 +1,5 @@
 package com.common.common_base.http.observer;
 
-
 import android.text.TextUtils;
 
 import com.common.common_base.http.HttpRequestListener;
@@ -19,64 +18,56 @@ import io.reactivex.disposables.Disposable;
  * 2.重写onError，封装错误/异常处理，移除请求_
  * 3.重写onNext，移除请求
  * 4.重写cancel，取消请求
- *
- *
  */
 public abstract class HttpRxObserver<T> implements Observer<T>, HttpRequestListener{
 
     private String mTag;//请求标识
 
-    public HttpRxObserver() {
+    public HttpRxObserver(){
     }
 
-    public HttpRxObserver(String tag) {
+    public HttpRxObserver(String tag){
         this.mTag = tag;
     }
 
     @Override
-    public void onError(Throwable e) {
+    public void onError(Throwable e){
         RxActionManagerImpl.getInstance().remove(mTag);
-        if (e instanceof ApiException) {
-            onError((ApiException) e);
-        } else {
-            onError(new ApiException(e, ExceptionEngine.UN_KNOWN_ERROR));
-        }
+        onError(ExceptionEngine.handleException(e));
     }
 
     @Override
-    public void onComplete() {
+    public void onComplete(){
     }
 
     @Override
-    public void onNext(@NonNull T t) {
-        if (!TextUtils.isEmpty(mTag)) {
+    public void onNext(@NonNull T t){
+        if(!TextUtils.isEmpty(mTag)){
             RxActionManagerImpl.getInstance().remove(mTag);
         }
         onSuccess(t);
     }
 
     @Override
-    public void onSubscribe(@NonNull Disposable d) {
-        if (!TextUtils.isEmpty(mTag)) {
+    public void onSubscribe(@NonNull Disposable d){
+        if(!TextUtils.isEmpty(mTag)){
             RxActionManagerImpl.getInstance().add(mTag, d);
         }
         onStart(d);
     }
 
     @Override
-    public void cancel() {
-        if (!TextUtils.isEmpty(mTag)) {
+    public void cancel(){
+        if(!TextUtils.isEmpty(mTag)){
             RxActionManagerImpl.getInstance().cancel(mTag);
         }
     }
 
     /**
      * 是否已经处理
-     *
-     *
      */
-    public boolean isDisposed() {
-        if (TextUtils.isEmpty(mTag)) {
+    public boolean isDisposed(){
+        if(TextUtils.isEmpty(mTag)){
             return true;
         }
         return RxActionManagerImpl.getInstance().isDisposed(mTag);
@@ -86,16 +77,11 @@ public abstract class HttpRxObserver<T> implements Observer<T>, HttpRequestListe
 
     /**
      * 错误/异常回调
-     *
-     *
      */
     protected abstract void onError(ApiException e);
 
     /**
      * 成功回调
-     *
-     *
      */
     protected abstract void onSuccess(T response);
-
 }

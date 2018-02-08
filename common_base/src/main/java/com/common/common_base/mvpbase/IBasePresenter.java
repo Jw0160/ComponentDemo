@@ -8,5 +8,8 @@ package com.common.common_base.mvpbase;
  */
 
 public interface IBasePresenter{
-
+    /**
+     * 加载数据
+     */
+    void doLoadData();
 }

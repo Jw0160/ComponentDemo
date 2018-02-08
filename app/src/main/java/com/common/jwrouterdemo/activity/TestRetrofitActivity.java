@@ -64,7 +64,7 @@ public class TestRetrofitActivity extends BaseActivity{
         String lBody = JSONUtil.toJSON(new LoginBean("13510220341", "1234567", 11992444753960964L));
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),
                 lBody);
-        Observable lObservable = HttpRxObservable.getObservable(RetrofitUtils.get().retrofit().create(BaseApi.class).doPost("login.json", new LoginBean("13510220341", "1234567", 11992444753960964L)));
+        Observable lObservable = HttpRxObservable.getObservable(RetrofitUtils.get().retrofit().create(BaseApi.class).doPost("login.json",body));
         lObservable.subscribe(new HttpRxObserver(){
             @Override
             protected void onStart(Disposable d){

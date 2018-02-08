@@ -1,6 +1,6 @@
 package com.common.jwrouterdemo.activity.test_mvp;
 
-import com.common.common_base.mvpbase.BasePresenter;
+import com.common.common_base.mvpbase.IBasePresenter;
 import com.common.common_base.mvpbase.IBaseView;
 
 /**
@@ -15,7 +15,7 @@ public interface ITest{
         void onLogin();
     }
 
-    interface Persenter{
+    interface Persenter extends IBasePresenter{
         void doLogin(String name, String pwd);
     }
 }
