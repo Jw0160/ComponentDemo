@@ -11,7 +11,7 @@ import com.common.common_base.mvpbase.IBaseView;
  */
 
 public interface ITest{
-    interface View extends IBaseView{
+    interface View {
         void onLogin();
     }
 

@@ -22,9 +22,9 @@ import okhttp3.RequestBody;
  * @desc :
  */
 
-public class TestMvpPresenter<T extends IBaseView> extends PresenterManage<ITest.View> implements ITest.Persenter{
+public class TestMvpPresenter<T extends IBaseView> extends PresenterManage<TestMvoFragment> implements ITest.Persenter{
 
-    public TestMvpPresenter(ITest.View activity){
+    public TestMvpPresenter(TestMvoFragment activity){
         super(activity);
     }
 
